@@ -1,0 +1,19 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/gestionStocks
+    username: postgres
+    password: 8345karifa
+    driver-class-name: org.postgresql.Driver
+## specification de la base de donne
+  jpa:
+    ##database: POSTGRES version 2.x de spring boot
+    show-sql: false
+## hibernate pour mettre a jour la base de donne (create, create-drop, update)
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+server:
+  port: 8081
+

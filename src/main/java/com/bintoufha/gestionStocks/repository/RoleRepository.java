@@ -1,0 +1,9 @@
+package com.bintoufha.gestionStocks.repository;
+
+import com.bintoufha.gestionStocks.model.Roles;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.UUID;
+
+public interface RoleRepository extends JpaRepository<Roles ,UUID> {
+}

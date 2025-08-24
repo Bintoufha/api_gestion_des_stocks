@@ -1,0 +1,39 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/gestionStocks
+    username: postgres
+    password: 8345karifa
+    driver-class-name: org.postgresql.Driver
+## specification de la base de donne
+  jpa:
+    ##database: POSTGRES version 2.x de spring boot
+    show-sql: false
+    ## hibernate pour mettre a jour la base de donne (create, create-drop, update)
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: false
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        session_factory:
+          statement_inspector: com.bintoufha.gestionStocks.interceptor.InterceptorSql
+
+
+# Log toutes les requêtes SQL interceptées par StatementInspector
+logging:
+  level:
+    com.bintoufha.gestionStocks.interceptor: DEBUG   # tes logs personnalisés
+    org.hibernate.SQL: DEBUG                         # requêtes SQL générées
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE # valeurs des paramètres
+server:
+  port: 8081
+
+unsplash:
+  ## ID de application : 793010
+  base-url: https://api.unsplash.com
+  apiKey: C7xKaCHqCSanBLrzt-shKqZJuVdxe51O0vjF07xZ3xc;
+  ##apiSecret: c-yJm2VhZzF_ZXYOcAthXlXYU_s4fmyM9pKMG9pVt6k;
+
+  appKey:
+  appSecret:
+
