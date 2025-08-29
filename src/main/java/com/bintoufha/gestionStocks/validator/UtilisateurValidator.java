@@ -21,7 +21,7 @@ public class UtilisateurValidator {
         if (!StringUtils.isEmpty(utilisateursDto.getNomPrenomUtilisateurs())) {
             errors.add("Veuillez renseigner le champs nom et prenom");
         }
-        if (!StringUtils.isEmpty(utilisateursDto.getEmailUtilisateurs())) {
+        if (!StringUtils.isEmpty(utilisateursDto.getEmail())) {
             errors.add("Veuillez renseigner le champs email");
         }
         if (!StringUtils.isEmpty(utilisateursDto.getPwd())) {

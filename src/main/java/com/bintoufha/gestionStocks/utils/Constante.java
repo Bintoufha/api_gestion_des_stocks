@@ -4,6 +4,7 @@ public interface Constante {
 
     String APP_ROOT = "/gestiondesstocks/v1";
 
+//    ventre
     String VENTE_ENDPOINT = APP_ROOT + "/vente";
     String CREATE_VENTE_ENDPOINT = VENTE_ENDPOINT + "/create_vente";
     String FIND_VENTE_ENDPOINT_BY_UUID = VENTE_ENDPOINT + "/recherche/uuidVente";
@@ -11,4 +12,31 @@ public interface Constante {
     String FIND_ALL_VENTE_ENDPOINT= VENTE_ENDPOINT + "/AllVente";
     String DELETE_VENTE_ENDPOINT_BY_UUID = VENTE_ENDPOINT + "/uuidVente";
 
+//    authentification
+    String AUTHENTICATE_ENDPOINT =APP_ROOT + "/auth/authenticate";
+
+
+/*
+4588c800-8272-11f0-b6cb-9d9f53b1868b
+4588c801-8272-11f0-b6cb-9d9f53b1868b
+4588c802-8272-11f0-b6cb-9d9f53b1868b
+4588c803-8272-11f0-b6cb-9d9f53b1868b
+4588c804-8272-11f0-b6cb-9d9f53b1868b
+4588c805-8272-11f0-b6cb-9d9f53b1868b
+4588c806-8272-11f0-b6cb-9d9f53b1868b
+4588c807-8272-11f0-b6cb-9d9f53b1868b
+4588c808-8272-11f0-b6cb-9d9f53b1868b
+4588c809-8272-11f0-b6cb-9d9f53b1868b
+4588c80a-8272-11f0-b6cb-9d9f53b1868b
+4588c80b-8272-11f0-b6cb-9d9f53b1868b
+4588c80c-8272-11f0-b6cb-9d9f53b1868b
+4588c80d-8272-11f0-b6cb-9d9f53b1868b
+4588c80e-8272-11f0-b6cb-9d9f53b1868b
+4588c80f-8272-11f0-b6cb-9d9f53b1868b
+4588c810-8272-11f0-b6cb-9d9f53b1868b
+4588c811-8272-11f0-b6cb-9d9f53b1868b
+4588c812-8272-11f0-b6cb-9d9f53b1868b
+4588c813-8272-11f0-b6cb-9d9f53b1868b
+
+ */
 }

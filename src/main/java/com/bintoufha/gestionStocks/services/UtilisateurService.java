@@ -1,6 +1,5 @@
 package com.bintoufha.gestionStocks.services;
 
-import com.bintoufha.gestionStocks.dto.FournisseursDto;
 import com.bintoufha.gestionStocks.dto.UtilisateursDto;
 
 import java.util.List;
@@ -10,6 +9,8 @@ public interface UtilisateurService {
     UtilisateursDto save (UtilisateursDto utilisateursDto);
 
     UtilisateursDto findByUuid(UUID uuid);
+
+    UtilisateursDto findByEmail(String email);
 
     List<UtilisateursDto> findAll();
 

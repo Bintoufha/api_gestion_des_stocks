@@ -21,6 +21,11 @@ public class UtilisateurControllers implements UtilisateursApi {
     }
 
     @Override
+    public ResponseEntity<UtilisateursDto> findByEmail(String email) {
+        return ResponseEntity.ok(utilisateurService.findByEmail(email));
+    }
+
+    @Override
     public ResponseEntity<UtilisateursDto> save(UtilisateursDto utilisateursDto) {
         return ResponseEntity.ok(utilisateurService.save(utilisateursDto));
     }

@@ -16,6 +16,8 @@ public class RolesDto {
 
     private UUID idEntreprise;
 
+    private UtilisateursDto utilisateur;
+
     public static RolesDto fromEntity(Roles roles){
         if (roles == null){
             return null;

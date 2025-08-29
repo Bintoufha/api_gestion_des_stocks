@@ -7,6 +7,7 @@ import com.bintoufha.gestionStocks.model.Entreprises;
 import lombok.Builder;
 import lombok.Data;
 
+import java.time.Instant;
 import java.util.UUID;
 
 @Data
@@ -18,7 +19,9 @@ public class EntrepriseDto {
     private String nomEntreprise;
 
 
-    private Addresse addresse;
+    private AddresseDto addresse;
+
+    private String email;
 
     public static EntrepriseDto fromEntity(Entreprises entreprises){
         if (entreprises == null){
@@ -28,7 +31,9 @@ public class EntrepriseDto {
         return EntrepriseDto.builder()
                 .uuid(entreprises.getUuid())
                 .nomEntreprise(entreprises.getNomEntreprise())
-                .addresse(entreprises.getAddresse())
+                //.addresse(entreprises.getAddresse())
+                .email(entreprises.getEmail())
+//                .dateN
                 .build();
     }
 
@@ -39,7 +44,8 @@ public class EntrepriseDto {
         Entreprises entreprises = new Entreprises();
         entreprises.setUuid(entrepriseDto.getUuid());
         entreprises.setNomEntreprise(entrepriseDto.getNomEntreprise());
-        entreprises.setAddresse(entrepriseDto.getAddresse());
+        //entreprises.setAddresse(entrepriseDto.getAddresse());
+        entreprises.setEmail(entrepriseDto.getEmail());
         return entreprises;
 
     }

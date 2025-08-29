@@ -1,9 +1,6 @@
 package com.bintoufha.gestionStocks.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Embedded;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
 
@@ -20,7 +17,16 @@ public class Entreprises extends AbstractEntity{
     private String nomEntreprise;
 
     @Embedded
+    //@OneToOne(cascade = CascadeType.ALL)
     private Addresse addresse;
+
+    private String email;
+
+//    private Addresse addresse;
+//
+//    private Addresse addresse;
+//
+//    private Addresse addresse;
 
 
 }

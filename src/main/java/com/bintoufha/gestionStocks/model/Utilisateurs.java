@@ -29,7 +29,7 @@ public class Utilisateurs extends AbstractEntity {
 
     private Instant dateNaissance;
 
-    private String emailUtilisateurs;
+    private String email;
 
     private String pwd;
 
@@ -43,5 +43,7 @@ public class Utilisateurs extends AbstractEntity {
 
     private String photoUtilisateurs;
 
-    private List<Roles> roles;
+
+   // private List<Roles> roles;
+
 }

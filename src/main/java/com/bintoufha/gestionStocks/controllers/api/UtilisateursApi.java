@@ -20,6 +20,9 @@ public interface UtilisateursApi {
     @GetMapping(APP_ROOT + "/utilisateurs/recherche/uuid_utilisateur")
     ResponseEntity<UtilisateursDto> findByUuid(@PathVariable("uuid_utilisateur") UUID uuid);
 
+    @GetMapping(APP_ROOT + "/utilisateurs/email/{email}")
+    ResponseEntity<UtilisateursDto> findByEmail(@PathVariable("email") String email);
+
     @GetMapping(APP_ROOT + "/utilisateurs/All_utilisateur")
     ResponseEntity<List<UtilisateursDto>>findAll();
 
