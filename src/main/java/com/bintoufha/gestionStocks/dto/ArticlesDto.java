@@ -4,6 +4,7 @@ package com.bintoufha.gestionStocks.dto;
 import com.bintoufha.gestionStocks.model.Articles;
 import com.bintoufha.gestionStocks.model.Categories;
 import jakarta.persistence.Column;
+
 import lombok.Builder;
 import lombok.Data;
 

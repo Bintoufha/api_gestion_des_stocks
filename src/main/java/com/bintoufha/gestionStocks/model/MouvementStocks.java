@@ -3,6 +3,8 @@ package com.bintoufha.gestionStocks.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.math.BigDecimal;
+import java.time.Instant;
 import java.util.UUID;
 
 
@@ -19,11 +21,14 @@ public class MouvementStocks extends AbstractEntity {
     @JoinColumn(name = "uuidArticle")
     private Articles articles;
 
+    @Column(name = "datemvt")
+    private Instant dateMvt;
+
     @Column(name = "typeMouvement")
     private String typeMouvement;
 
     @Column(name = "quantite")
-    private  Integer quantite;
+    private BigDecimal quantite;
 
     @Column(name = "uuidEntreprise")
     private UUID idEntreprise;
