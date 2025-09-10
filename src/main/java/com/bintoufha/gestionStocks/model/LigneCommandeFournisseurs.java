@@ -3,6 +3,7 @@ package com.bintoufha.gestionStocks.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.math.BigDecimal;
 import java.util.UUID;
 
 @Data
@@ -16,6 +17,12 @@ public class LigneCommandeFournisseurs extends AbstractEntity {
     @ManyToOne
     @JoinColumn(name = "uuidArticle")
     private Articles articles;
+
+    @JoinColumn(name = "quantite")
+    private BigDecimal quantite;
+
+    @JoinColumn(name = "prixUnitaire")
+    private  BigDecimal prixUnitaire;
 
     @Column(name = "uuidEntreprise")
     private UUID idEntreprise;

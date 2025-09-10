@@ -1,14 +1,18 @@
 package com.bintoufha.gestionStocks.services.Impl;
 
-import com.bintoufha.gestionStocks.services.UnsplashImageService;
-import lombok.Value;
+import org.springframework.web.reactive.function.client.WebClient;
+
+import java.io.InputStream;
 
 public class UnsplashImageServiceImpl implements UnsplashImageService {
-    @Override
-    public String searchImages(String query, int page, int perPage) {
-        return "";
+
+    public UnsplashImageServiceImpl(WebClient unsplashWebClient) {
     }
 
+    @Override
+    public String savePhoto(InputStream photo, String title) {
+        return "";
+    }
 //    private final WebClient webClient;
 //
 //    public UnsplashImageServiceImpl(@Value("${unsplash.base-url}") String baseUrl,

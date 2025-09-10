@@ -43,9 +43,7 @@ public class CategorieServiceImpl implements CategorieService {
             throw new InvalEntityException(
                     "cette categorie est invalide", ErrorCodes.CATEGORY_NOT_VALID,errors);
         }
-        
         return CategoriesDto.fromEntity(
-
                 categorieRepository.save(CategoriesDto.toEntity(dto))
         );
 

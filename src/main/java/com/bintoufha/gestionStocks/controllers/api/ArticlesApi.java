@@ -1,6 +1,9 @@
 package com.bintoufha.gestionStocks.controllers.api;
 
 import com.bintoufha.gestionStocks.dto.ArticlesDto;
+import com.bintoufha.gestionStocks.dto.LigneCommandeClientsDto;
+import com.bintoufha.gestionStocks.dto.LigneCommandeFournisseursDto;
+import com.bintoufha.gestionStocks.dto.LigneVenteDto;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -57,6 +60,18 @@ public interface ArticlesApi {
             @ApiResponse(responseCode = "200", description = "Liste des articles (vide si aucun)")
     })
     List<ArticlesDto> findAll();
+
+    @GetMapping(value = APP_ROOT + "/articles/historique/vente/{uuidArticle}", produces = MediaType.APPLICATION_JSON_VALUE)
+    List<LigneVenteDto> findHistoriqueVente(@PathVariable("uuidArticle") UUID uuidArticle);
+
+    @GetMapping(value = APP_ROOT + "/articles/historique/commandeClient/{uuidArticle}", produces = MediaType.APPLICATION_JSON_VALUE)
+    List<LigneCommandeClientsDto> findHistoriqueCommandeCLients(@PathVariable("uuidArticle") UUID uuidArticle);
+
+    @GetMapping(value = APP_ROOT + "/articles/historique/commandeFournisseur/{uuidArticle}", produces = MediaType.APPLICATION_JSON_VALUE)
+    List<LigneCommandeFournisseursDto> findHistoriqueCommandeFournisseurs(@PathVariable("uuidArticle") UUID uuidArticle);
+
+    @GetMapping(value = APP_ROOT + "/articles/filter/categorie/{uuidCategorie}", produces = MediaType.APPLICATION_JSON_VALUE)
+    List<ArticlesDto> findAllArticleByCategorieUuid (@PathVariable("uuidCategorie") UUID uuidCategorie);
 
     @DeleteMapping(value = APP_ROOT + "/articles/supprimerArticle/{uuidArticles}", produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "Supprimer un article",

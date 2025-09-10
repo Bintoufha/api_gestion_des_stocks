@@ -32,9 +32,9 @@ public class Fournisseurs extends AbstractEntity{
     @Column(name = "uuidEntreprise")
     private UUID idEntreprise;
 
-    @Column(name = "Image")
+    @Column(name = "image")
     private String photoFournisseurs;
 
     @OneToMany(mappedBy = "fournisseurs")
-    private List<CommandeFournisseurs> CommandeFournisseurs;
+    private List<CommandeFournisseurs> commandeFournisseurs;
 }

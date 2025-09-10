@@ -32,32 +32,33 @@ public class ClientsDto {
     //@JsonIgnore
     private List<CommandeClientsDto> commandeClient;
 
-    public static Clients toEntity(ClientsDto clientsDto){
-        if (clientsDto == null){
+    public static Clients toEntity(ClientsDto clientsDto) {
+        if (clientsDto == null) {
             return null;
         }
-
         Clients clients = new Clients();
         clients.setUuid(clientsDto.getUuid());
         clients.setNomPrenomClient(clientsDto.getNomPrenomClient());
         clients.setEmailClient(clientsDto.getEmailClient());
         clients.setTelephoneClient(clientsDto.getTelephoneClient());
         clients.setIdEntreprise(clientsDto.getIdEntreprise());
-        //clients.setAddresse(clientsDto.toEntity(clientsDto.getAddresse()));
+        clients.setAddresse(AddresseDto.toEntity(clientsDto.getAddresse()));
         clients.setPhotoClient(clientsDto.getPhotoClient());
         return clients;
 
     }
-    public static ClientsDto fromEntity(Clients clients){
-        if (clients == null){
+
+    public static ClientsDto fromEntity(Clients clients) {
+        if (clients == null) {
             return null;
         }
-        return  ClientsDto.builder()
+        return ClientsDto.builder()
                 .uuid(clients.getUuid())
                 .nomPrenomClient(clients.getNomPrenomClient())
                 .emailClient(clients.getEmailClient())
                 .telephoneClient(clients.getTelephoneClient())
                 .photoClient(clients.getPhotoClient())
+                .addresse(AddresseDto.fromEntity(clients.getAddresse()))
                 .idEntreprise(clients.getIdEntreprise())
                 .build();
     }

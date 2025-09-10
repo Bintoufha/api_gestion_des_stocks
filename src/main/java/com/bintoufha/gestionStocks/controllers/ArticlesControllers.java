@@ -2,6 +2,9 @@ package com.bintoufha.gestionStocks.controllers;
 
 import com.bintoufha.gestionStocks.controllers.api.ArticlesApi;
 import com.bintoufha.gestionStocks.dto.ArticlesDto;
+import com.bintoufha.gestionStocks.dto.LigneCommandeClientsDto;
+import com.bintoufha.gestionStocks.dto.LigneCommandeFournisseursDto;
+import com.bintoufha.gestionStocks.dto.LigneVenteDto;
 import com.bintoufha.gestionStocks.services.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,7 +37,27 @@ public class ArticlesControllers implements ArticlesApi {
         return articleService.findAll();
     }
 
-//    @Override
+    @Override
+    public List<LigneVenteDto> findHistoriqueVente(UUID uuidArticle) {
+        return articleService.findHistoriqueVente(uuidArticle);
+    }
+
+    @Override
+    public List<LigneCommandeClientsDto> findHistoriqueCommandeCLients(UUID uuidArticle) {
+        return articleService.findHistoriqueCommandeCLients(uuidArticle);
+    }
+
+    @Override
+    public List<LigneCommandeFournisseursDto> findHistoriqueCommandeFournisseurs(UUID uuidArticle) {
+        return articleService.findHistoriqueCommandeFournisseurs(uuidArticle);
+    }
+
+    @Override
+    public List<ArticlesDto> findAllArticleByCategorieUuid(UUID uuidCategorie) {
+        return articleService.findAllArticleByCategorieUuid(uuidCategorie);
+    }
+
+    //    @Override
 //    public ArticlesDto findByCodeArticle(String codeArticle) {
 //        return articleService.findByCodeArticle(codeArticle);
 //    }

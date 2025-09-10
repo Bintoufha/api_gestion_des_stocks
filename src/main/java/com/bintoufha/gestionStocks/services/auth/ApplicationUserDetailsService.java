@@ -34,7 +34,6 @@ public class ApplicationUserDetailsService implements UserDetailsService {
         log.debug("✅ Utilisateur trouvé: {} | UUID Entreprise: {}",
                 utilisateurs.getEmail(),
                 utilisateurs.getEntreprise().getUuid());
-        log.debug("Mot de passe hashé en base: {}", utilisateurs.getPwd());
         List<SimpleGrantedAuthority> authorities =List.of(
                 new SimpleGrantedAuthority("ROLE_USER") // rôle par défaut temporaire
         );

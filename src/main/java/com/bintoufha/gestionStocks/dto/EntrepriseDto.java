@@ -18,6 +18,15 @@ public class EntrepriseDto {
 
     private String nomEntreprise;
 
+    private String description;
+
+    private String codeFiscale;
+
+    private String photoEntreprise;
+
+    private String numero;
+
+    private String siteWebUrl;
 
     private AddresseDto addresse;
 
@@ -31,9 +40,13 @@ public class EntrepriseDto {
         return EntrepriseDto.builder()
                 .uuid(entreprises.getUuid())
                 .nomEntreprise(entreprises.getNomEntreprise())
-                //.addresse(entreprises.getAddresse())
+                .numero(entreprises.getNumero())
+                .photoEntreprise(entreprises.getPhotoEntreprise())
+                .siteWebUrl(entreprises.getSiteWebUrl())
+                .addresse(AddresseDto.fromEntity(entreprises.getAddresse()))
                 .email(entreprises.getEmail())
-//                .dateN
+                .codeFiscale(entreprises.getCodeFiscale())
+                .description(entreprises.getDescription())
                 .build();
     }
 
@@ -44,8 +57,13 @@ public class EntrepriseDto {
         Entreprises entreprises = new Entreprises();
         entreprises.setUuid(entrepriseDto.getUuid());
         entreprises.setNomEntreprise(entrepriseDto.getNomEntreprise());
-        //entreprises.setAddresse(entrepriseDto.getAddresse());
+        entreprises.setAddresse(AddresseDto.toEntity(entrepriseDto.getAddresse()));
         entreprises.setEmail(entrepriseDto.getEmail());
+        entreprises.setPhotoEntreprise(entrepriseDto.getPhotoEntreprise());
+        entreprises.setCodeFiscale(entrepriseDto.getCodeFiscale());
+        entreprises.setDescription(entrepriseDto.getDescription());
+        entreprises.setNumero(entrepriseDto.getNumero());
+        entreprises.setSiteWebUrl(entrepriseDto.getSiteWebUrl());
         return entreprises;
 
     }

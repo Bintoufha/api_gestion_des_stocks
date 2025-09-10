@@ -1,6 +1,8 @@
 package com.bintoufha.gestionStocks.services;
 
-public interface UnsplashImageService {
+import java.io.InputStream;
 
-    String searchImages(String query, int page, int perPage);
+public interface UnsplashImageService  {
+
+    String savePhoto(InputStream photo, String titre);
 }

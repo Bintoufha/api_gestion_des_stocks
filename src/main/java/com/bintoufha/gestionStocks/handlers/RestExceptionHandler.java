@@ -4,6 +4,7 @@ package com.bintoufha.gestionStocks.handlers;
 import com.bintoufha.gestionStocks.exception.EntityNoFoundException;
 import com.bintoufha.gestionStocks.exception.ErrorCodes;
 import com.bintoufha.gestionStocks.exception.InvalEntityException;
+import com.bintoufha.gestionStocks.exception.InvalidOperationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -40,20 +41,19 @@ public class RestExceptionHandler {
         return new ResponseEntity<>(errorDto, notFound);
     }
 
-//    @ExceptionHandler(InvalidEntityException.class)
-//    public ResponseEntity<ErrorDto> handleException(InvalidEntityException exception, WebRequest webRequest) {
-//        final HttpStatus badRequest = HttpStatus.BAD_REQUEST;
-//
-//        final ErrorDto errorDto = ErrorDto.builder()
-//                .code(exception.getErrorCode())
-//                .httpCode(badRequest.value())
-//                .message(exception.getMessage())
-//                .errors(exception.getErrors())
-//                .build();
-//
-//        return new ResponseEntity<>(errorDto, badRequest);
-//    }
-//
+    @ExceptionHandler(InvalidOperationException.class)
+    public ResponseEntity<ErrorDto> handleException(InvalidOperationException exception, WebRequest webRequest) {
+
+        final HttpStatus badRequest = HttpStatus.BAD_REQUEST;
+        final ErrorDto errorDto = ErrorDto.builder()
+                .codes(exception.getErrorCodes())
+                .httpCode(badRequest.value())
+                .message(exception.getMessage())
+                .build();
+
+        return new ResponseEntity<>(errorDto, badRequest);
+    }
+
     @ExceptionHandler(BadCredentialsException.class)
     public ResponseEntity<ErrorDto> handleException(BadCredentialsException exception, WebRequest webRequest) {
         final HttpStatus badRequest = HttpStatus.BAD_REQUEST;

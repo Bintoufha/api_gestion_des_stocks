@@ -1,11 +1,14 @@
 package com.bintoufha.gestionStocks.dto;
 
 import com.bintoufha.gestionStocks.model.Articles;
-import com.bintoufha.gestionStocks.model.LigneCommandeFournisseurs;
 import com.bintoufha.gestionStocks.model.MouvementStocks;
+import com.bintoufha.gestionStocks.model.SourceMvtStocks;
+import com.bintoufha.gestionStocks.model.TypeMvtStocks;
 import lombok.Builder;
 import lombok.Data;
 
+import java.math.BigDecimal;
+import java.time.Instant;
 import java.util.UUID;
 
 @Data
@@ -17,9 +20,13 @@ public class MouvementStocksDto {
 
     private Articles article;
 
-    private String typeMouvement;
+    private Instant dateMvt;
 
-    private  Integer quantite;
+    private TypeMvtStocks typeMouvement;
+
+    private SourceMvtStocks sourceMouvement;
+
+    private BigDecimal quantite;
 
     private String motif;
 
@@ -35,6 +42,8 @@ public class MouvementStocksDto {
                 .typeMouvement(mouvementStocks.getTypeMouvement())
                 .quantite(mouvementStocks.getQuantite())
                 .motif(mouvementStocks.getMotif())
+                .dateMvt(mouvementStocks.getDateMvt())
+                .sourceMouvement(mouvementStocks.getSourceMouvement())
                 .idEntreprise(mouvementStocks.getIdEntreprise())
                 .build();
     }
@@ -47,8 +56,11 @@ public class MouvementStocksDto {
         mouvementStocks.setArticles(mouvementStocksDto.getArticle());
         mouvementStocks.setIdEntreprise(mouvementStocksDto.getIdEntreprise());
         mouvementStocks.setTypeMouvement(mouvementStocksDto.getTypeMouvement());
+        mouvementStocks.setTypeMouvement(mouvementStocksDto.getTypeMouvement());
         mouvementStocks.setQuantite(mouvementStocksDto.getQuantite());
+        mouvementStocks.setSourceMouvement(mouvementStocks.getSourceMouvement());
         mouvementStocks.setMotif(mouvementStocksDto.getMotif());
+        mouvementStocks.setDateMvt(mouvementStocksDto.getDateMvt());
         return mouvementStocks;
     }
 }

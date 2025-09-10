@@ -2,6 +2,7 @@ package com.bintoufha.gestionStocks.dto;
 
 import com.bintoufha.gestionStocks.model.CommandeClients;
 import com.bintoufha.gestionStocks.model.CommandeFournisseurs;
+import com.bintoufha.gestionStocks.model.EtatCommande;
 import com.bintoufha.gestionStocks.model.Fournisseurs;
 import lombok.Builder;
 import lombok.Data;
@@ -17,12 +18,13 @@ public class CommandeFournisseursDto {
 
     private UUID uuid;
 
-    private String Refernce;
+    private String reference;
 
-    private Instant DateCommande;
+    private Instant dateCommande;
 
+    private EtatCommande etatCommande;
 
-    private Fournisseurs fournisseurs;
+    private FournisseursDto fournisseurs;
 
     private UUID idEntreprise;
 
@@ -35,9 +37,10 @@ public class CommandeFournisseursDto {
         }
         return CommandeFournisseursDto.builder()
                 .uuid(commandeFournisseurs.getUuid())
-                .Refernce(commandeFournisseurs.getRefernce())
-                .DateCommande(commandeFournisseurs.getDateCommande())
-                .fournisseurs(commandeFournisseurs.getFournisseurs())
+                .reference(commandeFournisseurs.getReference())
+                .dateCommande(commandeFournisseurs.getDateCommande())
+                .fournisseurs(FournisseursDto.fromEntity(commandeFournisseurs.getFournisseurs()))
+                .etatCommande(commandeFournisseurs.getEtatCommande())
                 .idEntreprise(commandeFournisseurs.getIdEntreprise())
                 .build();
     }
@@ -47,9 +50,16 @@ public class CommandeFournisseursDto {
         }
         CommandeFournisseurs commandeFournisseurs = new CommandeFournisseurs();
         commandeFournisseurs.setUuid(commandeFournisseursDto.getUuid());
-        commandeFournisseurs.setRefernce(commandeFournisseursDto.getRefernce());
+        commandeFournisseurs.setReference(commandeFournisseursDto.getReference());
         commandeFournisseurs.setIdEntreprise(commandeFournisseursDto.getIdEntreprise());
+        commandeFournisseurs.setEtatCommande(commandeFournisseursDto.getEtatCommande());
+        commandeFournisseurs.setFournisseurs(FournisseursDto.toEntity(commandeFournisseursDto.getFournisseurs()));
         commandeFournisseurs.setDateCommande(commandeFournisseursDto.getDateCommande());
         return commandeFournisseurs;
+    }
+
+
+    public boolean isCommandeLivree(){
+        return EtatCommande.LIVREE.equals(this.etatCommande);
     }
 }

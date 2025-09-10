@@ -18,18 +18,21 @@ import java.util.UUID;
 public class CommandeFournisseurs extends AbstractEntity {
 
     @Column(name = "reference")
-    private String Refernce;
+    private String reference;
 
     @Column(name = "dateCommande")
-    private Instant DateCommande;
+    private Instant dateCommande;
 
     @Column(name = "uuidEntreprise")
     private UUID idEntreprise;
+
+    @Column(name = "etatcommande")
+    private EtatCommande etatCommande;
 
     @ManyToOne
     @JoinColumn(name = "uuidFournisseurs")
     private Fournisseurs fournisseurs;
 
     @OneToMany(mappedBy = "commandefournisseur")
-    private List<LigneCommandeFournisseurs> LigneCommandeFournisseur;
+    private List<LigneCommandeFournisseurs> ligneCommandeFournisseur;
 }

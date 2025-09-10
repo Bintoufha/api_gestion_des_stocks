@@ -2,6 +2,8 @@ package com.bintoufha.gestionStocks.dto;
 
 import com.bintoufha.gestionStocks.model.Clients;
 import com.bintoufha.gestionStocks.model.CommandeClients;
+import com.bintoufha.gestionStocks.model.EtatCommande;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Data;
 
@@ -18,12 +20,14 @@ public class CommandeClientsDto {
     private UUID uuid;
     private String Refernce;
 
-    private Instant DateCommande;
+    private Instant dateCommande;
 
-    private Clients clients;
+    private ClientsDto clients;
 
     private UUID idEntreprise;
 
+    private EtatCommande etatCommande;
+    @JsonIgnore
     public List<LigneCommandeClientsDto> ligneCommandeClients;
 
     public static CommandeClientsDto fromEntity(CommandeClients commandeClients){
@@ -33,9 +37,10 @@ public class CommandeClientsDto {
         return CommandeClientsDto.builder()
                 .uuid(commandeClients.getUuid())
                 .Refernce(commandeClients.getRefernce())
-                .DateCommande(commandeClients.getDateCommande())
-                .clients(commandeClients.getClients())
+                .dateCommande(commandeClients.getDateCommande())
+                .clients(ClientsDto.fromEntity(commandeClients.getClients()))
                 .idEntreprise(commandeClients.getIdEntreprise())
+                .etatCommande(commandeClients.getEtatCommande())
                 .build();
     }
     public static CommandeClients toEntity (CommandeClientsDto commandeClientsDto){
@@ -46,7 +51,15 @@ public class CommandeClientsDto {
         commandeClients.setUuid(commandeClientsDto.getUuid());
         commandeClients.setRefernce(commandeClientsDto.getRefernce());
         commandeClients.setIdEntreprise(commandeClientsDto.getIdEntreprise());
+        commandeClients.setClients(ClientsDto.toEntity(commandeClientsDto.getClients()));
+        commandeClients.setEtatCommande(commandeClientsDto.getEtatCommande());
         commandeClients.setDateCommande(commandeClientsDto.getDateCommande());
         return commandeClients;
+    }
+
+
+
+    public boolean isCommandeLivree(){
+        return EtatCommande.LIVREE.equals(this.etatCommande);
     }
 }

@@ -17,6 +17,8 @@ public class CategoriesDto {
     private String code;
 
     private String designation;
+
+    private EntrepriseDto uuidEntreprise;
     @JsonIgnore
     private List<ArticlesDto> listArticle;
 
@@ -29,6 +31,7 @@ public class CategoriesDto {
         return CategoriesDto.builder()
                 .code(categorie.getCode())
                 .designation(categorie.getDesignation())
+               // .uuidEntreprise(categorie.getIdEntreprise())
                 .build();
     }
 

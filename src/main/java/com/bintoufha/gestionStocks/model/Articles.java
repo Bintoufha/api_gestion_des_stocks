@@ -44,16 +44,16 @@ public class Articles extends AbstractEntity {
     @JoinColumn(name = "uuiCategorie")
     private Categories categorie;
 
-    @OneToMany(mappedBy = "articles")
+    @OneToMany(mappedBy = "articles", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<LigneVente> ligneVentes;
 
-    @OneToMany(mappedBy = "articles")
+    @OneToMany(mappedBy = "articles", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<LigneCommandeClients> ligneCommandeClients;
 
-    @OneToMany(mappedBy = "articles")
+    @OneToMany(mappedBy = "articles", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<LigneCommandeFournisseurs> ligneCommandeFournisseurs;
 
-    @OneToMany(mappedBy = "articles")
+    @OneToMany(mappedBy = "articles", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<MouvementStocks> mouvementStocks;
 
 }

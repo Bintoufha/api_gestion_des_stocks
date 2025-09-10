@@ -25,7 +25,10 @@ public class MouvementStocks extends AbstractEntity {
     private Instant dateMvt;
 
     @Column(name = "typeMouvement")
-    private String typeMouvement;
+    private TypeMvtStocks typeMouvement;
+
+    @Column(name = "sourceMouvement")
+    private SourceMvtStocks sourceMouvement;
 
     @Column(name = "quantite")
     private BigDecimal quantite;

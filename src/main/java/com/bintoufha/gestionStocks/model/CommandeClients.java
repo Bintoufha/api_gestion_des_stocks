@@ -20,10 +20,13 @@ public class CommandeClients extends AbstractEntity {
     private String refernce;
 
     @Column(name = "dateCommande")
-    private Instant DateCommande;
+    private Instant dateCommande;
 
     @Column(name = "uuidEntreprise")
     private UUID idEntreprise;
+
+    @Column(name = "etatcommande")
+    private EtatCommande etatCommande;
 
     @ManyToOne
     @JoinColumn(name = "uuidClient")

@@ -33,13 +33,13 @@ server:
   port: 8083
 
 unsplash:
-  ## ID de application : 793010
-  base-url: https://api.unsplash.com
+#   ID: 793010
+  base-url: https://api.unsplash.com;
   apiKey: C7xKaCHqCSanBLrzt-shKqZJuVdxe51O0vjF07xZ3xc;
-  ##apiSecret: c-yJm2VhZzF_ZXYOcAthXlXYU_s4fmyM9pKMG9pVt6k;
+  apiSecret: c-yJm2VhZzF_ZXYOcAthXlXYU_s4fmyM9pKMG9pVt6k;
 
-  appKey:
-  appSecret:
+#  appKey:
+#  appSecret:
 
 jsonwebtoken:
   jwt:

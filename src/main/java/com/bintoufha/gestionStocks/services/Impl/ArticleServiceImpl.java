@@ -1,11 +1,16 @@
 package com.bintoufha.gestionStocks.services.Impl;
 
 import com.bintoufha.gestionStocks.dto.ArticlesDto;
+import com.bintoufha.gestionStocks.dto.LigneCommandeClientsDto;
+import com.bintoufha.gestionStocks.dto.LigneCommandeFournisseursDto;
+import com.bintoufha.gestionStocks.dto.LigneVenteDto;
 import com.bintoufha.gestionStocks.exception.EntityNoFoundException;
 import com.bintoufha.gestionStocks.exception.ErrorCodes;
 import com.bintoufha.gestionStocks.exception.InvalEntityException;
 import com.bintoufha.gestionStocks.model.Articles;
-import com.bintoufha.gestionStocks.repository.ArticleRepository;
+import com.bintoufha.gestionStocks.model.LigneCommandeFournisseurs;
+import com.bintoufha.gestionStocks.model.LigneVente;
+import com.bintoufha.gestionStocks.repository.*;
 import com.bintoufha.gestionStocks.services.ArticleService;
 import com.bintoufha.gestionStocks.validator.ArticleValidator;
 import io.micrometer.common.util.StringUtils;
@@ -25,11 +30,21 @@ public class ArticleServiceImpl implements ArticleService {
 
     private final DefaultErrorAttributes errorAttributes;
     private ArticleRepository articleRepository;
+    private LigneVenteRepository venteRepository;
+    private LigneCommandeFournisseursRepository ligneCommandeFournisseursRepository;
+    private LigneCommandeClientsRepository ligneCommandeClientsRepository;
 
-    @Autowired
-    public ArticleServiceImpl(ArticleRepository articleRepository, DefaultErrorAttributes errorAttributes) {
-        this.articleRepository = articleRepository;
+    public ArticleServiceImpl(DefaultErrorAttributes errorAttributes, ArticleRepository articleRepository,
+                              LigneVenteRepository venteRepository,
+                              LigneCommandeFournisseursRepository ligneCommandeFournisseursRepository,
+                              LigneCommandeClientsRepository ligneCommandeClientsRepository
+    )
+    {
         this.errorAttributes = errorAttributes;
+        this.articleRepository = articleRepository;
+        this.venteRepository = venteRepository;
+        this.ligneCommandeFournisseursRepository = ligneCommandeFournisseursRepository;
+        this.ligneCommandeClientsRepository = ligneCommandeClientsRepository;
     }
 
     @Override
@@ -85,6 +100,33 @@ public class ArticleServiceImpl implements ArticleService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public List<LigneVenteDto> findHistoriqueVente(UUID uuidArticle) {
+        return venteRepository.findAllByUuid(uuidArticle).stream()
+                .map(LigneVenteDto::fromEntity)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<LigneCommandeClientsDto> findHistoriqueCommandeCLients(UUID uuidArticle) {
+        return ligneCommandeClientsRepository.findAllByUuid(uuidArticle).stream()
+                .map(LigneCommandeClientsDto::fromEntity)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<LigneCommandeFournisseursDto> findHistoriqueCommandeFournisseurs(UUID uuidArticle) {
+        return ligneCommandeFournisseursRepository.findAllByArticles_Uuid(uuidArticle).stream()
+                .map(LigneCommandeFournisseursDto::fromEntity)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ArticlesDto> findAllArticleByCategorieUuid(UUID uuidCategorie) {
+        return articleRepository.findAllByCategorieUuid(uuidCategorie).stream()
+                .map(ArticlesDto::fromEntity)
+                .collect(Collectors.toList());
+    }
 
     @Override
     public void delete(UUID uuid) {

@@ -15,5 +15,7 @@ public interface CommandeClientsRepository extends JpaRepository<CommandeClients
 
     Optional<CommandeClients> findByRefernce(String refernce);
 
+    Optional<CommandeClients> findAllLignesCommandeClientsByUuid(UUID uuid);
+
     void deleteByUuid(UUID uuid);
 }

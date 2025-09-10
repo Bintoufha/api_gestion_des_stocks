@@ -3,10 +3,8 @@ package com.bintoufha.gestionStocks.model;
 import com.bintoufha.gestionStocks.dto.AddresseDto;
 import com.bintoufha.gestionStocks.dto.EntrepriseDto;
 import com.bintoufha.gestionStocks.dto.RolesDto;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.Instant;
@@ -43,7 +41,8 @@ public class Utilisateurs extends AbstractEntity {
 
     private String photoUtilisateurs;
 
-
-   // private List<Roles> roles;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "utilisateurs")
+    @JsonIgnore
+    private List<Roles> roles;
 
 }
