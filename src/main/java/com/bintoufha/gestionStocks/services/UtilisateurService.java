@@ -1,5 +1,6 @@
 package com.bintoufha.gestionStocks.services;
 
+import com.bintoufha.gestionStocks.dto.ChangerMotDePasseUtilisateurDto;
 import com.bintoufha.gestionStocks.dto.UtilisateursDto;
 
 import java.util.List;
@@ -15,4 +16,6 @@ public interface UtilisateurService {
     List<UtilisateursDto> findAll();
 
     void deleteByUuid(UUID uuid);
+
+    UtilisateursDto ChangePwd (ChangerMotDePasseUtilisateurDto pwdChange);
 }

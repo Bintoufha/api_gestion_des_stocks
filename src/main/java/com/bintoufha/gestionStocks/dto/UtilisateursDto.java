@@ -58,7 +58,7 @@ public class UtilisateursDto {
 //                )
                 .build();
     }
-    public static Utilisateurs fromEntity(UtilisateursDto utilisateursDto) {
+    public static Utilisateurs toEntity(UtilisateursDto utilisateursDto) {
         if (utilisateursDto == null) {
             return null;
         }
