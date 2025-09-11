@@ -15,13 +15,13 @@ import java.util.UUID;
 public class LigneVenteDto {
     private UUID uuid;
 
-    private Ventes vente;
+    private VentesDto vente;
 
 
-    private Articles articles;
+    private ArticlesDto articles;
 
 
-    private BigDecimal Qte;
+    private BigDecimal qte;
 
     private UUID idEntreprise;
 
@@ -34,11 +34,11 @@ public class LigneVenteDto {
         }
         return LigneVenteDto.builder()
                 .uuid(ligneVente.getUuid())
-                .articles(ligneVente.getArticles())
+                .articles(ArticlesDto.fromEntity(ligneVente.getArticles()))
+                .vente(VentesDto.fromEntity(ligneVente.getVente()))
                 .idEntreprise(ligneVente.getIdEntreprise())
-                .Qte(ligneVente.getQte())
+                .qte(ligneVente.getQte())
                 .prix(ligneVente.getPrix())
-                .vente(ligneVente.getVente())
                 .build();
     }
 
@@ -48,7 +48,8 @@ public class LigneVenteDto {
         }
         LigneVente ligneVente = new LigneVente();
         ligneVente.setUuid(ligneVenteDto.getUuid());
-        ligneVente.setVente(ligneVenteDto.getVente());
+        ligneVente.setArticles(ArticlesDto.toEntity(ligneVenteDto.getArticles()));
+        //ligneVente.setVente(VentesDto.toEntity(ligneVenteDto.getVente()));
         ligneVente.setPrix(ligneVenteDto.getPrix());
         ligneVente.setQte(ligneVenteDto.getQte());
         ligneVente.setIdEntreprise(ligneVenteDto.getIdEntreprise());

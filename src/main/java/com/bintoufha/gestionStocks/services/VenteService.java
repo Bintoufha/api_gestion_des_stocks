@@ -2,6 +2,7 @@ package com.bintoufha.gestionStocks.services;
 
 import com.bintoufha.gestionStocks.dto.VentesDto;
 
+import java.util.List;
 import java.util.UUID;
 
 public interface VenteService {
@@ -12,7 +13,7 @@ public interface VenteService {
 
     VentesDto findByReference(String reference);
 
-    VentesDto findAll();
+    List<VentesDto> findAll();
 
-    VentesDto deleteByUuid(UUID uuid);
+    void deleteByUuid(UUID uuid);
 }

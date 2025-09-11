@@ -1,5 +1,6 @@
 package com.bintoufha.gestionStocks.services.Impl;
 
+import com.bintoufha.gestionStocks.services.UnsplashImageService;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.io.InputStream;

@@ -67,7 +67,6 @@ public class CommandeFournisseurServiceImpl implements CommandeFournisseurServic
     public void delete(UUID uuid) {
 
     }
-
     @Override
     public CommandeFournisseursDto UpdteEtatCommande(UUID uuidCommande, EtatCommande etatCommande) {
         CheckUuidCommande(uuidCommande);
@@ -245,6 +244,7 @@ public class CommandeFournisseurServiceImpl implements CommandeFournisseurServic
         }
     }
 
+    // methode pour mettre a jour le stock pour Commande fournisseurs
     private void updateMvStock(UUID uuidCommande) {
         List<LigneCommandeFournisseurs> ligneCommandeFournisseurs = ligneCommandeFournisseursRepository.findAllByArticles_Uuid(uuidCommande);
         ligneCommandeFournisseurs.forEach(ligne -> {

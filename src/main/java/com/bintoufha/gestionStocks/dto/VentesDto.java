@@ -1,11 +1,13 @@
 package com.bintoufha.gestionStocks.dto;
 
 import com.bintoufha.gestionStocks.model.LigneCommandeFournisseurs;
+import com.bintoufha.gestionStocks.model.LigneVente;
 import com.bintoufha.gestionStocks.model.Ventes;
 import lombok.Builder;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -13,6 +15,7 @@ import java.util.UUID;
 public class VentesDto {
 
     private UUID uuid;
+
     private String reference;
 
     private String typeVente;
@@ -24,6 +27,8 @@ public class VentesDto {
     private BigDecimal montantReste;
 
     private BigDecimal montantTotal;
+
+    private List<LigneVenteDto> ligneVentes;
 
     public static VentesDto fromEntity(Ventes ventes) {
         if (ventes == null) {

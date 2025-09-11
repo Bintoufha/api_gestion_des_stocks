@@ -345,6 +345,7 @@ public class CommandeClientsServiceImpl implements CommandeClientsService {
         }
     }
 
+    // methode pour mettre a jour le stock pour Commande clients
     private void updateMvStock(UUID uuidCommande ){
         List<LigneCommandeClients>ligneCommandeClients = ligneCommandeClientsRepository.findAllByUuid(uuidCommande);
         ligneCommandeClients.forEach(ligne ->{
