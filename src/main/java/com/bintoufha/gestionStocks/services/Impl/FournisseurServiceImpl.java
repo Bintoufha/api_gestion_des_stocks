@@ -4,7 +4,10 @@ import com.bintoufha.gestionStocks.dto.FournisseursDto;
 import com.bintoufha.gestionStocks.exception.EntityNoFoundException;
 import com.bintoufha.gestionStocks.exception.ErrorCodes;
 import com.bintoufha.gestionStocks.exception.InvalEntityException;
+import com.bintoufha.gestionStocks.exception.InvalidOperationException;
+import com.bintoufha.gestionStocks.model.CommandeFournisseurs;
 import com.bintoufha.gestionStocks.model.Fournisseurs;
+import com.bintoufha.gestionStocks.repository.CommandeFournisseursRepository;
 import com.bintoufha.gestionStocks.repository.FournisseursRepository;
 import com.bintoufha.gestionStocks.services.FournisseurService;
 import com.bintoufha.gestionStocks.validator.FournisseurValidator;
@@ -23,6 +26,7 @@ public class FournisseurServiceImpl  implements FournisseurService {
 
     private final DefaultErrorAttributes errorAttributes;
     private FournisseursRepository fournisseursRepository;
+    private CommandeFournisseursRepository commandeFournisseursRepository;
 
     public FournisseurServiceImpl(DefaultErrorAttributes errorAttributes, FournisseursRepository fournisseursRepository) {
         this.fournisseursRepository = fournisseursRepository;
@@ -69,6 +73,11 @@ public class FournisseurServiceImpl  implements FournisseurService {
     public void deleteByUuid(UUID uuid) {
         if (uuid == null) {
             log.error("identifiants invalide");
+        }
+        List<CommandeFournisseurs> commandeFournisseur = commandeFournisseursRepository.findAllByFournisseursUuid(uuid);
+        if (!commandeFournisseur.isEmpty()) {
+            throw new InvalidOperationException("Impossible de supprimer un fournisseur qui a deja des commandes",
+                    ErrorCodes.FOURNISSEUR_ALREADY_IN_USE);
         }
         fournisseursRepository.findByUuid(uuid);
     }

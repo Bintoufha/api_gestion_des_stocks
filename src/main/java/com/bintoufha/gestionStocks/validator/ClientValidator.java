@@ -15,6 +15,7 @@ public class ClientValidator {
             errors.add("Veuillez renseigner le nom et prenom du client");
             errors.add("Veuillez renseigner le mail de client ");
             errors.add("Veuillez renseigner le numero de telephone ");
+            errors.addAll(AddresseValidator.validate(null));
             return errors;
         }
         if (!StringUtils.isEmpty(Dtoclients.getNomPrenomClient())) {
@@ -26,6 +27,7 @@ public class ClientValidator {
         if (!StringUtils.isEmpty(Dtoclients.getTelephoneClient())) {
             errors.add("Veuillez renseigner le mail de client");
         }
+        errors.addAll(AddresseValidator.validate(Dtoclients.getAddresse()));
         return errors;
     }
 }

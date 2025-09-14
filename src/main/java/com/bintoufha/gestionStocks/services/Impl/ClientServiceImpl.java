@@ -6,9 +6,12 @@ import com.bintoufha.gestionStocks.dto.ClientsDto;
 import com.bintoufha.gestionStocks.exception.EntityNoFoundException;
 import com.bintoufha.gestionStocks.exception.ErrorCodes;
 import com.bintoufha.gestionStocks.exception.InvalEntityException;
+import com.bintoufha.gestionStocks.exception.InvalidOperationException;
 import com.bintoufha.gestionStocks.model.Articles;
 import com.bintoufha.gestionStocks.model.Clients;
+import com.bintoufha.gestionStocks.model.CommandeClients;
 import com.bintoufha.gestionStocks.repository.ClientsRepository;
+import com.bintoufha.gestionStocks.repository.CommandeClientsRepository;
 import com.bintoufha.gestionStocks.services.ClientService;
 import com.bintoufha.gestionStocks.validator.ClientValidator;
 import lombok.extern.slf4j.Slf4j;
@@ -26,10 +29,12 @@ public class ClientServiceImpl implements ClientService {
 
     private final DefaultErrorAttributes errorAttributes;
     private ClientsRepository clientsRepository;
+    private CommandeClientsRepository commandeClientsRepository;
 
-    public ClientServiceImpl(DefaultErrorAttributes errorAttributes, ClientsRepository clientsRepository) {
+    public ClientServiceImpl(DefaultErrorAttributes errorAttributes, ClientsRepository clientsRepository, CommandeClientsRepository commandeClientsRepository) {
         this.clientsRepository = clientsRepository;
         this.errorAttributes = errorAttributes;
+        this.commandeClientsRepository = commandeClientsRepository;
     }
 
     @Override
@@ -72,6 +77,11 @@ public class ClientServiceImpl implements ClientService {
     public void deleteByUuid(UUID uuid) {
         if (uuid == null){
             log.error("identifiants invalide");
+        }
+        List<CommandeClients> commandeClients =commandeClientsRepository.findAllByClientsUuid(uuid);
+        if (!commandeClients.isEmpty()) {
+            throw new InvalidOperationException("Impossible de supprimer un client qui a deja des commande clients",
+                    ErrorCodes.CLIENT_ALREADY_IN_USE);
         }
         clientsRepository.findByUuid(uuid);
     }

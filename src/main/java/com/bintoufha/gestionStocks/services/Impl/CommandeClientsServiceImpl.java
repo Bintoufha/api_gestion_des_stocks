@@ -157,6 +157,11 @@ public class CommandeClientsServiceImpl implements CommandeClientsService {
             log.error("identifiant de la commande client est null");
             throw new IllegalArgumentException("identifiant ne peut pas être null");
         }
+        List<LigneCommandeClients> ligneCommandeClients = ligneCommandeClientsRepository.findAllByUuid(uuid);
+        if (!ligneCommandeClients.isEmpty()) {
+            throw new InvalidOperationException("Impossible de supprimer une commande client deja utilisee",
+                    ErrorCodes.COMMANDE_CLIENT_ALREADY_IN_USE);
+        }
         commandeClientsRepository.deleteByUuid(uuid);
     }
 

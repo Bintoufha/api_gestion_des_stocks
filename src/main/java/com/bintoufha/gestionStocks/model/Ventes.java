@@ -9,6 +9,7 @@ import lombok.*;
 import org.w3c.dom.stylesheets.LinkStyle;
 
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
 
@@ -27,6 +28,9 @@ public class Ventes extends AbstractEntity {
 
     @Column(name = "typeVente")
     private String typeVente;
+
+    @Column(name = "dateVente")
+    private Instant dateCommande;
 
     @Column(name = "montantPayer")
     private BigDecimal montantPayer;

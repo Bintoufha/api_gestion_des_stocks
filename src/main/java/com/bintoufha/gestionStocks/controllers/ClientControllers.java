@@ -26,6 +26,8 @@ public class ClientControllers implements ClientsApi {
         return ResponseEntity.ok(clientService.save(clientsDto));
     }
 
+
+
     @Override
     public ResponseEntity<ClientsDto> findByUUID(UUID uuidClient) {
         return ResponseEntity.ok(clientService.findByUuid(uuidClient));

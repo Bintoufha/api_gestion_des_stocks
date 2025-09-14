@@ -10,7 +10,6 @@ import com.bintoufha.gestionStocks.model.Utilisateurs;
 import com.bintoufha.gestionStocks.repository.UtilisateursRepository;
 import com.bintoufha.gestionStocks.services.UtilisateurService;
 import com.bintoufha.gestionStocks.validator.UtilisateurValidator;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -25,7 +24,7 @@ import java.util.stream.Collectors;
 public class UtilisateurServiceImpl implements UtilisateurService {
 
     private UtilisateursRepository utilisateursRepository;
-    private PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
     public UtilisateurServiceImpl(

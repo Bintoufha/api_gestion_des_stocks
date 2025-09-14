@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
 
@@ -19,6 +20,8 @@ public class VentesDto {
     private String reference;
 
     private String typeVente;
+
+    private Instant dateCommande;
 
     private UUID idEntreprise;
 
@@ -42,6 +45,7 @@ public class VentesDto {
                 .montantPayer(ventes.getMontantPayer())
                 .montantReste(ventes.getMontantReste())
                 .montantTotal(ventes.getMontantTotal())
+                .dateCommande(ventes.getDateCommande())
                 .build();
     }
 
@@ -57,6 +61,8 @@ public class VentesDto {
         ventes.setMontantPayer(ventesDto.getMontantPayer());
         ventes.setMontantReste(ventesDto.getMontantReste());
         ventes.setMontantTotal(ventesDto.getMontantTotal());
+        ventes.setDateCommande(ventesDto.getDateCommande());
+
         return ventes;
     }
 

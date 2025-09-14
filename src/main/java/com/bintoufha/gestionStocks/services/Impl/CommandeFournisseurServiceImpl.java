@@ -65,7 +65,16 @@ public class CommandeFournisseurServiceImpl implements CommandeFournisseurServic
 
     @Override
     public void delete(UUID uuid) {
-
+        if (uuid == null) {
+            log.error("Commande fournisseur ID is NULL");
+            return;
+        }
+        List<LigneCommandeFournisseurs> ligneCommandeFournisseurs = ligneCommandeFournisseursRepository.findAllByArticles_Uuid(uuid);
+        if (!ligneCommandeFournisseurs.isEmpty()) {
+            throw new InvalidOperationException("Impossible de supprimer une commande fournisseur deja utilisee",
+                    ErrorCodes.COMMANDE_FOURNISSEUR_ALREADY_IN_USE);
+        }
+        commandeFournisseursRepository.deleteById(uuid);
     }
     @Override
     public CommandeFournisseursDto UpdteEtatCommande(UUID uuidCommande, EtatCommande etatCommande) {

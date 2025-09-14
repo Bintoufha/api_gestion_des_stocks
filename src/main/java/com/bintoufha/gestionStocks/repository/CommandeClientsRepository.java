@@ -4,6 +4,7 @@ package com.bintoufha.gestionStocks.repository;
 import com.bintoufha.gestionStocks.model.CommandeClients;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -18,4 +19,6 @@ public interface CommandeClientsRepository extends JpaRepository<CommandeClients
     Optional<CommandeClients> findAllLignesCommandeClientsByUuid(UUID uuid);
 
     void deleteByUuid(UUID uuid);
+
+    List<CommandeClients> findAllByClientsUuid(UUID uuid);
 }

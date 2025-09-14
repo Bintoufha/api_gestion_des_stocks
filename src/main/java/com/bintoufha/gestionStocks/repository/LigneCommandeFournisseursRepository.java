@@ -16,4 +16,6 @@ public interface LigneCommandeFournisseursRepository extends JpaRepository<Ligne
     List<LigneCommandeFournisseurs> findAllByArticles_Uuid(UUID uuidCommande);
 
     void deleteByUuid(UUID uuidLigneCommande);
+
+   // List<LigneCommandeFournisseurs> findAllByCommandeFournisseurUuid(UUID uuid);
 }

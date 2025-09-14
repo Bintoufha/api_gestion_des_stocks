@@ -40,7 +40,7 @@ public class MouvementStockServiceImpl implements MouvementStockService {
 
     @Override
     public List<MouvementStocksDto> mvtStockArticle(UUID uuidArticle) {
-        return mvtRepository.findAllByArticle_Uuid(uuidArticle).stream()
+        return mvtRepository.findAllByArticlesUuid(uuidArticle).stream()
                 .map(MouvementStocksDto::fromEntity)
                 .collect(Collectors.toList());
     }

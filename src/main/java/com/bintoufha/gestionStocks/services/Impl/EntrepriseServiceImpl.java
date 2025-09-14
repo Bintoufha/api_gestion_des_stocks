@@ -75,6 +75,7 @@ public class EntrepriseServiceImpl implements EntrepriseService {
                 .entreprise(entrepriseDto)
                 .dateNaissance(Instant.now())
                 .addresse(entrepriseDto.getAddresse())
+                .photoUtilisateurs(entrepriseDto.getPhotoEntreprise())
                 .build();
     }
 

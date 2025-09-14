@@ -16,6 +16,7 @@ public class UtilisateurValidator {
             errors.add("Veuillez renseigner le champs email");
             errors.add("Veuillez renseigner le champs mot de passe");
             errors.add("Veuillez renseigner le champs addresse");
+            errors.addAll(AddresseValidator.validate(null));
             return errors;
         }
         if (!StringUtils.isEmpty(utilisateursDto.getNomPrenomUtilisateurs())) {
@@ -30,26 +31,7 @@ public class UtilisateurValidator {
         if (utilisateursDto.getDateNaissance() == null) {
             errors.add("Veuillez renseigner le champs date de naissance");
         }
-        if (utilisateursDto.getAddresse() == null) {
-            errors.add("Veuillez renseigner le champs nom et prenom");
-        }else {
-            if (!StringUtils.isEmpty(utilisateursDto.getAddresse().getAddresse1())) {
-                errors.add("le champs addresse 1 est obligatoire");
-            }
-            if (!StringUtils.isEmpty(utilisateursDto.getAddresse().getCodePostale())) {
-                errors.add("le champs Code postale est obligatoire");
-            }
-            if (!StringUtils.isEmpty(utilisateursDto.getAddresse().getVille())) {
-                errors.add("le champs Ville est obligatoire");
-            }
-            if (!StringUtils.isEmpty(utilisateursDto.getAddresse().getPays())) {
-                errors.add("le champs Pays 1 est obligatoire");
-            }
-            if (!StringUtils.isEmpty(utilisateursDto.getAddresse().getAddresse1())) {
-                errors.add("le champs addresse 1 est obligatoire");
-            }
-
-        }
+        errors.addAll(AddresseValidator.validate(utilisateursDto.getAddresse()));
         return errors;
 
     }

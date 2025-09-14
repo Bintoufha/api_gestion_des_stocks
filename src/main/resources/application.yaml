@@ -4,6 +4,10 @@ spring:
     username: postgres
     password: 8345karifa
     driver-class-name: org.postgresql.Driver
+  servlet:
+    multipart:
+      max-file-size: 2MB
+      max-request-size: 2MB
 ## specification de la base de donne
   jpa:
     ##database: POSTGRES version 2.x de spring boot
@@ -20,15 +24,7 @@ spring:
 # Log toutes les requêtes SQL interceptées par StatementInspector
 logging:
   level:
-#    .org:
-#      springframework:
-#        security: DEBUG
-    #    root: DEBUG
-#    com.bintoufha.gestionStocks.config.ApplicationRequestFilter: DEBUG   # tes logs personnalisés
-#    com.bintoufha.gestionStocks.utils.JwtUtils: DEBUG
-#    com.bintoufha.gestionStocks.services.auth.ApplicationUserDetailsService: DEBUG
     org.hibernate.SQL: DEBUG                         # requêtes SQL générées
-#    org.hibernate.type.descriptor.sql.BasicBinder: TRACE # valeurs des paramètres
 server:
   port: 8083
 
@@ -44,4 +40,6 @@ unsplash:
 jsonwebtoken:
   jwt:
     secret: SecretUltraSecuriseEtStockeCorrectement
-
+app:
+  upload:
+    dir: ./uploads/images

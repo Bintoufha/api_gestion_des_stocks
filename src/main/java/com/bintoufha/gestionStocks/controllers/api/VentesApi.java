@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 import static com.bintoufha.gestionStocks.utils.Constante.*;
@@ -24,7 +25,7 @@ public interface VentesApi {
     ResponseEntity<VentesDto> findByReference(@PathVariable String reference);
 
     @GetMapping(FIND_ALL_VENTE_ENDPOINT)
-    ResponseEntity<VentesDto> findAll();
+    ResponseEntity<List<VentesDto>> findAll();
 
     @DeleteMapping(DELETE_VENTE_ENDPOINT_BY_UUID)
     ResponseEntity<VentesDto> deleteByUuid(@PathVariable("uuidVente") UUID uuid);

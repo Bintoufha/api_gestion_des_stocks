@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -35,7 +36,7 @@ public class VenteControllers implements VentesApi {
     }
 
     @Override
-    public ResponseEntity<VentesDto> findAll() {
+    public ResponseEntity<List<VentesDto>> findAll() {
         return ResponseEntity.ok(venteService.findAll());
     }
 

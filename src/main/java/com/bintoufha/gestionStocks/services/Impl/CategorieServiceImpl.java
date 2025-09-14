@@ -5,8 +5,11 @@ import com.bintoufha.gestionStocks.dto.ClientsDto;
 import com.bintoufha.gestionStocks.exception.EntityNoFoundException;
 import com.bintoufha.gestionStocks.exception.ErrorCodes;
 import com.bintoufha.gestionStocks.exception.InvalEntityException;
+import com.bintoufha.gestionStocks.exception.InvalidOperationException;
+import com.bintoufha.gestionStocks.model.Articles;
 import com.bintoufha.gestionStocks.model.Categories;
 import com.bintoufha.gestionStocks.model.Clients;
+import com.bintoufha.gestionStocks.repository.ArticleRepository;
 import com.bintoufha.gestionStocks.repository.CategorieRepository;
 import com.bintoufha.gestionStocks.services.CategorieService;
 import com.bintoufha.gestionStocks.validator.CategorieValidator;
@@ -26,12 +29,14 @@ public class CategorieServiceImpl implements CategorieService {
 
     private final DefaultErrorAttributes errorAttributes;
     private final CategorieRepository categorieRepository;
+    private ArticleRepository articleRepository;
 
     @Autowired
     public CategorieServiceImpl(
-            CategorieRepository categorieRepository, DefaultErrorAttributes errorAttributes
+            CategorieRepository categorieRepository, DefaultErrorAttributes errorAttributes, ArticleRepository articleRepository
     ){
         this.categorieRepository = categorieRepository;
+        this.articleRepository = articleRepository;
         this.errorAttributes = new DefaultErrorAttributes();
     }
 
@@ -80,6 +85,15 @@ public class CategorieServiceImpl implements CategorieService {
 
     @Override
     public void delete(UUID uuid) {
-
+        if (uuid == null) {
+            log.error("Category ID is null");
+            return;
+        }
+        List<Articles> articles = articleRepository.findAllByCategorieUuid(uuid);
+        if (!articles.isEmpty()) {
+            throw new InvalidOperationException("Impossible de supprimer cette categorie qui est deja utilise",
+                    ErrorCodes.CATEGORY_ALREADY_IN_USE);
+        }
+        categorieRepository.deleteById(uuid);
     }
 }

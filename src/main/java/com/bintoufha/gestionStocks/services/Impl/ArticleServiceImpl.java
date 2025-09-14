@@ -7,7 +7,9 @@ import com.bintoufha.gestionStocks.dto.LigneVenteDto;
 import com.bintoufha.gestionStocks.exception.EntityNoFoundException;
 import com.bintoufha.gestionStocks.exception.ErrorCodes;
 import com.bintoufha.gestionStocks.exception.InvalEntityException;
+import com.bintoufha.gestionStocks.exception.InvalidOperationException;
 import com.bintoufha.gestionStocks.model.Articles;
+import com.bintoufha.gestionStocks.model.LigneCommandeClients;
 import com.bintoufha.gestionStocks.model.LigneCommandeFournisseurs;
 import com.bintoufha.gestionStocks.model.LigneVente;
 import com.bintoufha.gestionStocks.repository.*;
@@ -133,6 +135,20 @@ public class ArticleServiceImpl implements ArticleService {
         if (uuid == null) {
             log.error("identifiant article est introuvable");
             return;
+        }
+        List<LigneCommandeClients> ligneCommandeClients = ligneCommandeClientsRepository.findAllByUuid(uuid);
+        if (!ligneCommandeClients.isEmpty()) {
+            throw new InvalidOperationException("Impossible de supprimer un article deja utilise dans des commandes client", ErrorCodes.ARTICLE_ALREADY_IN_USE);
+        }
+        List<LigneCommandeFournisseurs> ligneCommandeFournisseurs = ligneCommandeFournisseursRepository.findAllByArticles_Uuid(uuid);
+        if (!ligneCommandeFournisseurs.isEmpty()) {
+            throw new InvalidOperationException("Impossible de supprimer un article deja utilise dans des commandes fournisseur",
+                    ErrorCodes.ARTICLE_ALREADY_IN_USE);
+        }
+        List<LigneVente> ligneVentes = venteRepository.findAllByUuid(uuid);
+        if (!ligneVentes.isEmpty()) {
+            throw new InvalidOperationException("Impossible de supprimer un article deja utilise dans des ventes",
+                    ErrorCodes.ARTICLE_ALREADY_IN_USE);
         }
         articleRepository.deleteByUuid(uuid);
     }

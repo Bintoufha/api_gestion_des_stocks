@@ -15,6 +15,7 @@ public class FournisseurValidator {
             errors.add("Veuillez renseigner le nom et prenom du fournisseur");
             errors.add("Veuillez renseigner le mail de fournisseur ");
             errors.add("Veuillez renseigner le numero de telephone du fournisseur ");
+            errors.addAll(AddresseValidator.validate(null));
             return errors;
         }
         if (!StringUtils.isEmpty(Dtofournissuers.getNomPrenomFournisseurs())) {
@@ -26,6 +27,7 @@ public class FournisseurValidator {
         if (!StringUtils.isEmpty(Dtofournissuers.getTelephoneFournisseurs())) {
             errors.add("Veuillez renseigner le mail de fournisseur");
         }
+        errors.addAll(AddresseValidator.validate(Dtofournissuers.getAddresse()));
         return errors;
     }
 }

@@ -1,8 +1,6 @@
 package com.bintoufha.gestionStocks.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
 
@@ -17,4 +15,8 @@ public class Roles extends AbstractEntity {
 
     @Column(name = "role")
     private String nomRole;
+
+    @ManyToOne
+    @JoinColumn(name = "uuidUtilisateur")
+    private Utilisateurs utilisateurs;
 }

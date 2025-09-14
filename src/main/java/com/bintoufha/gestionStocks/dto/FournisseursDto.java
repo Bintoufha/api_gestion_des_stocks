@@ -26,13 +26,13 @@ public class FournisseursDto {
 
     private String telephoneFournisseurs;
 
-    private Addresse addresse;
+    private AddresseDto addresse;
 
     private UUID idEntreprise;
 
     private String photoFournisseurs;
 
-    private List<CommandeFournisseursDto> CommandeFournisseurs;
+    private List<CommandeFournisseursDto> commandeFournisseurs;
 
     public static FournisseursDto fromEntity(Fournisseurs fournisseurs){
         if (fournisseurs == null){
@@ -46,7 +46,7 @@ public class FournisseursDto {
                 .telephoneFournisseurs(fournisseurs.getTelephoneFournisseurs())
                 .idEntreprise(fournisseurs.getIdEntreprise())
                 .photoFournisseurs(fournisseurs.getPhotoFournisseurs())
-                .addresse(fournisseurs.getAddresse())
+                .addresse(AddresseDto.fromEntity(fournisseurs.getAddresse()))
                 .build();
     }
 
@@ -57,7 +57,7 @@ public class FournisseursDto {
         Fournisseurs fournisseurs = new Fournisseurs();
         fournisseurs.setUuid(fournisseursDto.getUuid());
         fournisseurs.setNomPrenomFournisseurs(fournisseursDto.getNomPrenomFournisseurs());
-        fournisseurs.setAddresse(fournisseursDto.getAddresse());
+        fournisseurs.setAddresse(AddresseDto.toEntity(fournisseursDto.getAddresse()));
         fournisseurs.setEmailFournisseurs(fournisseursDto.getEmailFournisseurs());
         fournisseurs.setIdEntreprise(fournisseursDto.getIdEntreprise());
         fournisseurs.setTelephoneFournisseurs(fournisseursDto.getTelephoneFournisseurs());

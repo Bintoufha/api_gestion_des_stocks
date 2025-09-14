@@ -12,8 +12,8 @@ import java.util.UUID;
 
 public interface MouvementStockRepository extends JpaRepository<MouvementStocks,UUID> {
 
-    @Query("select sum(m.quantite) from mvtStocks m where m.articles.uuid = :uuidArticle ")
+    @Query("select sum(m.quantite) from MouvementStocks m where m.articles.uuid = :uuidArticle ")
     BigDecimal stockReelArticle(@Param("uuidArticle") UUID uuidArticle);
 
-    List<MouvementStocks> findAllByArticle_Uuid(UUID uuidArticle);
+    List<MouvementStocks> findAllByArticlesUuid(UUID uuidArticle);
 }
