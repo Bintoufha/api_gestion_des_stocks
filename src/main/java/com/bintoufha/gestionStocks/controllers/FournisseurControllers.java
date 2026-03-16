@@ -1,7 +1,8 @@
 package com.bintoufha.gestionStocks.controllers;
 
 import com.bintoufha.gestionStocks.controllers.api.FournisseursApi;
-import com.bintoufha.gestionStocks.dto.FournisseursDto;
+import com.bintoufha.gestionStocks.dto.fournisseurs.FournisseurListDto;
+import com.bintoufha.gestionStocks.dto.fournisseurs.FournisseurSaveDto;
 import com.bintoufha.gestionStocks.services.FournisseurService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,22 +23,22 @@ public class FournisseurControllers implements FournisseursApi {
     }
 
     @Override
-    public ResponseEntity<FournisseursDto> save(FournisseursDto fournisseursDto) {
+    public ResponseEntity<FournisseurSaveDto> save(FournisseurSaveDto fournisseursDto) {
         return ResponseEntity.ok(fournisseurService.save(fournisseursDto));
     }
 
     @Override
-    public ResponseEntity<FournisseursDto> findByUuid(UUID uuid) {
+    public ResponseEntity<FournisseurListDto> findByUuid(UUID uuid) {
         return ResponseEntity.ok(fournisseurService.findByUuid(uuid));
     }
 
     @Override
-    public ResponseEntity<List<FournisseursDto>> findAll() {
+    public ResponseEntity<List<FournisseurListDto>> findAll() {
         return ResponseEntity.ok(fournisseurService.findAll());
     }
 
     @Override
-    public ResponseEntity<FournisseursDto> deleteByUuid(UUID uuid) {
+    public ResponseEntity<Void> deleteByUuid(UUID uuid) {
         fournisseurService.deleteByUuid(uuid);
         return ResponseEntity.ok().build();
     }

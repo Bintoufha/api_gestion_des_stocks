@@ -1,6 +1,6 @@
 package com.bintoufha.gestionStocks.services;
 
-import com.bintoufha.gestionStocks.dto.MouvementStocksDto;
+import com.bintoufha.gestionStocks.dto.mouvement.MouvementStocksDto;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -10,7 +10,7 @@ public interface MouvementStockService {
 
     BigDecimal stockReelArticle(UUID uuidArticle);
 
-    List<MouvementStocksDto> mvtStockArticle( UUID uuidArticle);
+    List<MouvementStocksDto> mvtStockArticle(UUID uuidArticle);
 
     MouvementStocksDto entreeStock(MouvementStocksDto mvtStock);
 

@@ -2,7 +2,7 @@ package com.bintoufha.gestionStocks.config;
 
 import com.bintoufha.gestionStocks.services.auth.ApplicationUserDetailsService;
 import com.bintoufha.gestionStocks.utils.JwtUtils;
-import io.jsonwebtoken.io.IOException;
+// import io.jsonwebtoken.io.IOException;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.MDC;
 import org.springframework.stereotype.Component;
@@ -17,91 +17,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
-//@Component
-//@Slf4j
-//public class ApplicationRequestFilter extends OncePerRequestFilter {
-//
-//
-//    private JwtUtils jwtUtils; // classe utilitaire qui gère la génération et la validation du token
-//    private ApplicationUserDetailsService userDetailsService; // ton service qui charge l'utilisateur en DB
-//
-//    @Autowired
-//    public ApplicationRequestFilter(ApplicationUserDetailsService userDetailsService, JwtUtils jwtUtils) {
-//        this.userDetailsService = userDetailsService;
-//        this.jwtUtils = jwtUtils;
-//    }
-//
-//    //  @Autowired
-////  public ApplicationRequestFilter(ApplicationUserDetailsService userDetailsService) {
-////      this.userDetailsService = userDetailsService;
-////  }
-//
-//    @Override
-//    protected void doFilterInternal
-//            (HttpServletRequest request,
-//              HttpServletResponse response,
-//              FilterChain chain) throws ServletException, IOException, java.io.IOException {
-//
-//        String path = request.getRequestURI();
-//        // ✅ Laisser passer les endpoints publics
-//        if (path.startsWith("/gestiondesstocks/v1/auth/authenticate") ||
-//                path.startsWith("/swagger-ui/") ||
-//                path.startsWith("/v3/api-docs/") ||
-//                path.startsWith("/gestiondesstocks/v1/utilisateurs/email/")) {
-//            chain.doFilter(request, response);
-//            return;
-//        }
-//        // 1️⃣ Récupération du header Authorization
-//        final String authHeader = request.getHeader("Authorization");
-//        if (authHeader == null) {
-//        }
-//        String username = null;
-//        String jwt = null;
-//        String idEntreprise = null;
-//
-//        // 2️⃣ Vérifier si le header contient un Bearer token
-//        if (authHeader != null && authHeader.startsWith("Bearer ")) {
-//            jwt = authHeader.substring(7); // Supprimer "Bearer "
-//            username = jwtUtils.extractUsername(jwt); // Récupérer l'email (username) du token
-//            idEntreprise = jwtUtils.extractIdEntreprise(jwt);
-//        }else {
-//            log.warn("⚠️ Authorization header mal formé ou manquant");
-//        }
-//
-//        // 3️⃣ Vérifier que l'utilisateur n'est pas déjà authentifié
-//        if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-//            UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
-//
-//            // 4️⃣ Valider le token JWT
-//            if (jwtUtils.validateToken(jwt, userDetails)) {
-//                log.info("✅ Token valide pour utilisateur: {}", username);
-//
-//                // Créer une authentification Spring Security
-//                UsernamePasswordAuthenticationToken authToken =
-//                        new UsernamePasswordAuthenticationToken(
-//                                userDetails,
-//                                null,
-//                                userDetails.getAuthorities()
-//                        );
-//
-//                authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-//
-//                // Mettre l'utilisateur dans le contexte de sécurité
-//                SecurityContextHolder.getContext().setAuthentication(authToken);
-//            }
-//            else {
-//                log.error("❌ Token invalide ou expiré pour utilisateur: {}", username);
-//            }
-//        }
-//
-//       MDC.put("idEntreprise",idEntreprise);
-//        // 5️⃣ Passer au filtre suivant
-//        chain.doFilter(request, response);
-//    }
-//}
+// curl http://127.0.0.1:8083/v3/api-docs -o ~/gestionStocks/target/swagger.json
+
 @Component
 @Slf4j
 public class ApplicationRequestFilter extends OncePerRequestFilter {
@@ -109,7 +30,7 @@ public class ApplicationRequestFilter extends OncePerRequestFilter {
     private final JwtUtils jwtUtils;
     private final ApplicationUserDetailsService userDetailsService;
 
-    // Liste des endpoints publics - mieux de centraliser cette configuration
+    // 🔓 Endpoints publics (pas de sécurité, pas de token)
     private static final List<String> PUBLIC_ENDPOINTS = Arrays.asList(
             "/gestiondesstocks/v1/auth/authenticate",
             "/swagger-ui/",
@@ -125,79 +46,121 @@ public class ApplicationRequestFilter extends OncePerRequestFilter {
     }
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
-                                    FilterChain chain) throws ServletException, IOException, java.io.IOException {
+    protected void doFilterInternal(
+            HttpServletRequest request,
+            HttpServletResponse response,
+            FilterChain chain
+    ) throws ServletException, IOException {
+
+        // ⭐ Autoriser immédiatement les requêtes HTTP OPTIONS
+        if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
+            chain.doFilter(request, response);
+            return;
+        }
 
         String path = request.getRequestURI();
 
-        // ✅ Vérifier si l'endpoint est public
+        // 🔓 Ignorer complètement les endpoints publics
         if (isPublicEndpoint(path)) {
             chain.doFilter(request, response);
             return;
         }
 
+        // 🔓 Swagger doit passer sans auth
+        if (path.startsWith("/v3/api-docs") || path.startsWith("/swagger-ui")) {
+            chain.doFilter(request, response);
+            return;
+//            sudo curl http://127.0.0.1:8083/v3/api-docs -o ~/gestionStocks/target/swagger.json
+        }
+
         try {
-            // 1️⃣ Récupération du header Authorization
-            final String authHeader = request.getHeader("Authorization");
+
+            /** ----------------------------------------------------------
+             *  1️⃣ Récupération des headers envoyés par Angular
+             *  ---------------------------------------------------------- */
+            String authHeader = request.getHeader("Authorization");
+            String anneeHeader = request.getHeader("X-ANNEE");
+            String idEntrepriseFromHeader = request.getHeader("X-ID-ENTREPRISE");
+
+            // Stocker temporairement (sera mis dans le MDC ensuite)
+            String anneeFiltre = (anneeHeader != null ? anneeHeader : null);
 
             if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-                log.warn("⚠️ Authorization header manquant ou mal formé pour: {}", path);
                 response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Token manquant ou invalide");
                 return;
             }
 
-            String jwt = authHeader.substring(7); // Supprimer "Bearer "
+            String jwt = authHeader.substring(7); // remove "Bearer "
             String username = jwtUtils.extractUsername(jwt);
-            String idEntreprise = jwtUtils.extractIdEntreprise(jwt);
 
-            // Validation basique du token
             if (username == null) {
-                log.warn("❌ Impossible d'extraire le username du token");
                 response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Token invalide");
                 return;
             }
 
-            // 2️⃣ Vérifier que l'utilisateur n'est pas déjà authentifié
+            /** ----------------------------------------------------------
+             *  2️⃣ Authentification utilisateur via Spring Security
+             *  ---------------------------------------------------------- */
             if (SecurityContextHolder.getContext().getAuthentication() == null) {
+
                 UserDetails userDetails = userDetailsService.loadUserByUsername(username);
 
-                // 3️⃣ Valider le token JWT
                 if (jwtUtils.validateToken(jwt, userDetails)) {
-                    log.debug("✅ Token valide pour utilisateur: {}", username);
 
-                    UsernamePasswordAuthenticationToken authToken =
+                    UsernamePasswordAuthenticationToken authenticationToken =
                             new UsernamePasswordAuthenticationToken(
                                     userDetails,
                                     null,
                                     userDetails.getAuthorities()
                             );
 
-                    authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                    SecurityContextHolder.getContext().setAuthentication(authToken);
+                    authenticationToken.setDetails(
+                            new WebAuthenticationDetailsSource().buildDetails(request)
+                    );
 
-                    // Ajouter l'idEntreprise au MDC pour le logging
-                    MDC.put("idEntreprise", idEntreprise != null ? idEntreprise : "unknown");
+                    SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+
+                    /** ----------------------------------------------------------
+                     *  3️⃣ Remplir MDC (Entreprise + Année)
+                     *  ---------------------------------------------------------- */
+
+                    // Entreprise : priorité au header envoyée par Angular
+                    String idEntrepriseFromJwt = jwtUtils.extractIdEntreprise(jwt);
+                    String idEntrepriseFinal = (idEntrepriseFromHeader != null)
+                            ? idEntrepriseFromHeader
+                            : idEntrepriseFromJwt;
+
+                    MDC.put("idEntreprise", idEntrepriseFinal != null ? idEntrepriseFinal : "unknown");
+
+                    // Année format "2024-2025"
+                    if (anneeFiltre != null) {
+                        MDC.put("annee", anneeFiltre);
+                    }
 
                 } else {
-                    log.error("❌ Token invalide ou expiré pour utilisateur: {}", username);
                     response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Token expiré ou invalide");
                     return;
                 }
             }
 
-            // 4️⃣ Passer au filtre suivant
+            /** ----------------------------------------------------------
+             *  4️⃣ Continuer la chaîne des filtres
+             *  ---------------------------------------------------------- */
             chain.doFilter(request, response);
 
-        } catch (Exception e) {
-            log.error("❌ Erreur lors du traitement de l'authentification: {}", e.getMessage());
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Erreur d'authentification");
         } finally {
-            // Nettoyer le MDC à la fin de la requête
+            // Nettoyage du contexte (IMPORTANT)
             MDC.remove("idEntreprise");
+            MDC.remove("annee");
         }
     }
 
+
+    /** ----------------------------------------------------------
+     * Vérifie si un endpoint est public
+     * ---------------------------------------------------------- */
     private boolean isPublicEndpoint(String path) {
         return PUBLIC_ENDPOINTS.stream().anyMatch(path::startsWith);
     }
 }
+

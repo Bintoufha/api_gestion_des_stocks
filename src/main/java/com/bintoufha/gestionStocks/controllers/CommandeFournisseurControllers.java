@@ -1,9 +1,8 @@
 package com.bintoufha.gestionStocks.controllers;
 
 import com.bintoufha.gestionStocks.controllers.api.CommandeFournisseursApi;
-import com.bintoufha.gestionStocks.dto.CommandeClientsDto;
-import com.bintoufha.gestionStocks.dto.CommandeFournisseursDto;
-import com.bintoufha.gestionStocks.dto.LigneCommandeFournisseursDto;
+import com.bintoufha.gestionStocks.dto.commandeFournisseurs.CommandeFournisseurSaveDto;
+import com.bintoufha.gestionStocks.dto.commandeFournisseurs.CommandeFournisseursListDto;
 import com.bintoufha.gestionStocks.model.EtatCommande;
 import com.bintoufha.gestionStocks.services.CommandeFournisseurService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,58 +24,58 @@ public class CommandeFournisseurControllers implements CommandeFournisseursApi {
     }
 
     @Override
-    public ResponseEntity<CommandeFournisseursDto> save(CommandeFournisseursDto commandeFournisseursDto) {
+    public ResponseEntity<CommandeFournisseurSaveDto> save(CommandeFournisseurSaveDto commandeFournisseursDto) {
         return ResponseEntity.ok(commandeFournisseurService.save(commandeFournisseursDto));
     }
 
     @Override
-    public ResponseEntity<CommandeFournisseursDto> findByUUID(UUID uuidCmdFournisseur) {
+    public ResponseEntity<CommandeFournisseursListDto> findByUUID(UUID uuidCmdFournisseur) {
         return ResponseEntity.ok(commandeFournisseurService.findByUUID(uuidCmdFournisseur));
     }
 
     @Override
-    public ResponseEntity<CommandeFournisseursDto> findByReference(String reference) {
+    public ResponseEntity<CommandeFournisseursListDto> findByReference(String reference) {
         return ResponseEntity.ok(commandeFournisseurService.findByReference(reference));
     }
 
     @Override
-    public ResponseEntity<List<CommandeFournisseursDto>> findAll() {
+    public ResponseEntity<List<CommandeFournisseursListDto>> findAll() {
         return ResponseEntity.ok(commandeFournisseurService.findAll());
     }
 
     @Override
-    public ResponseEntity<CommandeFournisseursDto> delete(UUID uuid) {
+    public ResponseEntity<CommandeFournisseursListDto> delete(UUID uuid) {
         commandeFournisseurService.delete(uuid);
         return ResponseEntity.ok().build();
     }
 
     @Override
-    public ResponseEntity<CommandeFournisseursDto> UpdteEtatCommande(UUID uuidCommande, EtatCommande etatCommande) {
+    public ResponseEntity<CommandeFournisseursListDto> UpdteEtatCommande(UUID uuidCommande, EtatCommande etatCommande) {
         return ResponseEntity.ok(commandeFournisseurService.UpdteEtatCommande(uuidCommande, etatCommande));
     }
 
     @Override
-    public ResponseEntity<CommandeFournisseursDto> UpdateQuantiteCommande(UUID uuidCommande, UUID uuidLigneCommande, BigDecimal quantite) {
+    public ResponseEntity<CommandeFournisseursListDto> UpdateQuantiteCommande(UUID uuidCommande, UUID uuidLigneCommande, BigDecimal quantite) {
         return ResponseEntity.ok(commandeFournisseurService.UpdateQuantiteCommande(uuidCommande,uuidLigneCommande,quantite));
     }
 
     @Override
-    public ResponseEntity<CommandeFournisseursDto> UpdateFournisseurs(UUID uuidCommande, UUID uuidfournisseur) {
+    public ResponseEntity<CommandeFournisseursListDto> UpdateFournisseurs(UUID uuidCommande, UUID uuidfournisseur) {
         return ResponseEntity.ok(commandeFournisseurService.UpdateFournisseurs(uuidCommande,uuidfournisseur));
     }
 
     @Override
-    public ResponseEntity<CommandeFournisseursDto> UpdateArticle(UUID uuidCommande, UUID uuidLigneCommande, UUID newdUuidArticle) {
+    public ResponseEntity<CommandeFournisseursListDto> UpdateArticle(UUID uuidCommande, UUID uuidLigneCommande, UUID newdUuidArticle) {
         return ResponseEntity.ok(commandeFournisseurService.UpdateArticle(uuidCommande,uuidLigneCommande,newdUuidArticle));
     }
 
     @Override
-    public ResponseEntity<CommandeFournisseursDto> DeleteArticle(UUID uuidCommande, UUID uuidLigneCommande) {
+    public ResponseEntity<CommandeFournisseursListDto> DeleteArticle(UUID uuidCommande, UUID uuidLigneCommande) {
         return ResponseEntity.ok(commandeFournisseurService.DeleteArticle(uuidCommande,uuidLigneCommande));
     }
 
-    @Override
-    public List<LigneCommandeFournisseursDto> findAllLigneCommandeFournisseurByUuid(UUID uuidCommande) {
-        return commandeFournisseurService.findAllLigneCommandeFournisseurByUuid(uuidCommande);
-    }
+//    @Override
+//    public List<CommandeFournisseursListDto> findAllLigneCommandeFournisseurByUuid(UUID uuidCommande) {
+//        return commandeFournisseurService.findAllLigneCommandeFournisseurByUuid(uuidCommande);
+//    }
 }

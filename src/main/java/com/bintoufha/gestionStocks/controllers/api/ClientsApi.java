@@ -1,10 +1,11 @@
 package com.bintoufha.gestionStocks.controllers.api;
 
-import com.bintoufha.gestionStocks.dto.ClientsDto;
-import com.bintoufha.gestionStocks.dto.CommandeClientsDto;
+import com.bintoufha.gestionStocks.dto.client.ClientListDto;
+import com.bintoufha.gestionStocks.dto.client.ClientSaveDto;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.http.MediaType;
 
 import java.util.List;
 import java.util.UUID;
@@ -16,18 +17,25 @@ import static com.bintoufha.gestionStocks.utils.Constante.APP_ROOT;
 public interface ClientsApi {
 
 
-    @PostMapping(value = APP_ROOT + "/clients/create")
-    ResponseEntity<ClientsDto> save(@RequestBody ClientsDto clientsDto);
+    @PostMapping(
+            value = APP_ROOT + "/clients/create",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE  // ✅ Important !
+    )
+    ResponseEntity<ClientSaveDto> save(@RequestBody ClientSaveDto clientsDto);
 
-    @GetMapping(value = APP_ROOT + "/clients/recherche/{uuidClient}")
-    ResponseEntity<ClientsDto> findByUUID(@PathVariable UUID uuidCmdClient);
+    @GetMapping(
+            value = APP_ROOT + "/clients/recherche/{uuidClient}",
+                produces = MediaType.APPLICATION_JSON_VALUE  // ✅ Important !
+    )
+    ResponseEntity<ClientListDto> findByUUID(@PathVariable("uuidClient") UUID uuid);
 
-//    @GetMapping(value = APP_ROOT + "/commandeClients/{reference}")
-//    ResponseEntity<ClientsDto> findByReference(@PathVariable String reference);
+    @GetMapping(
+            value = APP_ROOT + "/clients/allClt",
+            produces = MediaType.APPLICATION_JSON_VALUE  // ✅ Important !
+    )
+    ResponseEntity<List<ClientListDto>> findAll();
 
-    @GetMapping(value = APP_ROOT + "/clients/allClt")
-    ResponseEntity<List<ClientsDto>> findAll();
-
-    @DeleteMapping(value = APP_ROOT + "/clients/supprimer/{uuidClient}")
-    ResponseEntity<ClientsDto> delete(@PathVariable("uuidCmdClient") UUID uuid);
+    @DeleteMapping(value = APP_ROOT + "/clients/{uuidClient}")
+    ResponseEntity<Void> delete(@PathVariable("uuidClient") UUID uuid);
 }

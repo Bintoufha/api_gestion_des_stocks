@@ -3,6 +3,7 @@ package com.bintoufha.gestionStocks.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -37,8 +38,19 @@ public class Entreprises extends AbstractEntity{
     @Column(name = "email")
     private String email;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "type_entreprise_uuid")
+    private TypeEntreprises typeEntreprises;
+
     @Column(name = "siteWeb")
     private String siteWebUrl;
+
+    @Enumerated(EnumType.STRING)
+    @Column(length = 20)
+    private StatutEntreprise statut = StatutEntreprise.ACTIVE;
+
+    @OneToMany(mappedBy = "entreprise", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<EntrepriseConfig> tarifications = new ArrayList<>();
 
     @OneToMany(mappedBy = "entreprise")
     private List<Utilisateurs> utilisateurs;

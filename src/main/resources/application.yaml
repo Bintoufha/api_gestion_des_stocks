@@ -22,9 +22,9 @@ spring:
         session_factory:
           statement_inspector: com.bintoufha.gestionStocks.interceptor.InterceptorSql
 # Log toutes les requêtes SQL interceptées par StatementInspector
-logging:
-  level:
-    org.hibernate.SQL: DEBUG                         # requêtes SQL générées
+#logging:
+  #level:
+    #org.hibernate.SQL: DEBUG                         # requêtes SQL générées
 server:
   port: 8083
 

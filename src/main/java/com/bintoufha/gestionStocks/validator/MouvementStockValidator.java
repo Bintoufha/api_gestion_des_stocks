@@ -1,7 +1,6 @@
 package com.bintoufha.gestionStocks.validator;
 
-import com.bintoufha.gestionStocks.dto.CategoriesDto;
-import com.bintoufha.gestionStocks.dto.MouvementStocksDto;
+import com.bintoufha.gestionStocks.dto.mouvement.MouvementStocksDto;
 import org.springframework.util.StringUtils;
 
 import java.math.BigDecimal;

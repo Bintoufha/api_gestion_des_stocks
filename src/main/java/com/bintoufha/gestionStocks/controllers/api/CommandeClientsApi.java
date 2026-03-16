@@ -1,12 +1,14 @@
 package com.bintoufha.gestionStocks.controllers.api;
 
-import com.bintoufha.gestionStocks.dto.CommandeClientsDto;
-import com.bintoufha.gestionStocks.dto.LigneCommandeClientsDto;
+import com.bintoufha.gestionStocks.dto.commandeClient.CommandeClientListDto;
+import com.bintoufha.gestionStocks.dto.commandeClient.CommandeClientSaveDto;
+import com.bintoufha.gestionStocks.dto.ligneCommandeClient.LigneCommandeClientSaveDto;
 import com.bintoufha.gestionStocks.model.EtatCommande;
-import com.bintoufha.gestionStocks.model.LigneCommandeClients;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.http.MediaType;
+
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -18,41 +20,69 @@ import static com.bintoufha.gestionStocks.utils.Constante.APP_ROOT;
 //@RequestMapping(APP_ROOT + "/commandeClients")
 public interface CommandeClientsApi {
 
-    @PostMapping(value = APP_ROOT + "/commandeClients/create")
-    ResponseEntity<CommandeClientsDto> save (@RequestBody CommandeClientsDto commandeDto);
+    @PostMapping(
+            value = APP_ROOT + "/commandeClients/create",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE  // ✅ Important !
+)
+    ResponseEntity<CommandeClientSaveDto> save (@RequestBody CommandeClientSaveDto commandeDto);
 
-    @PatchMapping(value = APP_ROOT + "/commande/update/etat/{uuidCommande}/{etatCommande}")
-    ResponseEntity<CommandeClientsDto> UpdteCommandeClients(
+    @PatchMapping(
+            value = APP_ROOT + "/commande/update/etat/{uuidCommande}/{etatCommande}",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE  // ✅ Important !
+)
+    ResponseEntity<CommandeClientListDto> UpdteCommandeClients(
             @PathVariable("uuidCommande") UUID uuidCommande, @PathVariable("etatCommande") EtatCommande etatCommande);
 
-    @PatchMapping(value = APP_ROOT + "/commande/update/quantite/{uuidCommande}/{uuidLigneCommande}/{quantite}")
-    ResponseEntity<CommandeClientsDto>UpdateQuantiteCommande(@PathVariable("uuidCommande") UUID uuidCommande,
+    @PatchMapping(
+        value = APP_ROOT + "/commande/update/quantite/{uuidCommande}/{uuidLigneCommande}/{quantite}",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE  // ✅ Important !
+)
+    ResponseEntity<CommandeClientListDto>UpdateQuantiteCommande(@PathVariable("uuidCommande") UUID uuidCommande,
                     @PathVariable("uuidLigneCommande") UUID uuidLigneCommande, @PathVariable("quantite") BigDecimal quantite);
 
     @PatchMapping(value = APP_ROOT + "/commande/update/client/{uuidCommande}/{uuidClient}")
-    ResponseEntity<CommandeClientsDto>UpdateClient (@PathVariable("uuidCommande") UUID uuidCommande,
+    ResponseEntity<CommandeClientListDto>UpdateClient (@PathVariable("uuidCommande") UUID uuidCommande,
                                                     @PathVariable("uuidClient")UUID uuidClient);
 
-    @PatchMapping(value = APP_ROOT + "/commande/update/article/{uuidCommande}/{uuidLigneCommande}/{UuidArticle}")
-    ResponseEntity<CommandeClientsDto>UpdateArticle(@PathVariable("uuidCommande")UUID uuidCommande,
+    @PatchMapping(value = APP_ROOT + "/commande/update/article/{uuidCommande}/{uuidLigneCommande}/{UuidArticle}",
+consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE  // ✅ Important !
+)
+    ResponseEntity<CommandeClientListDto>UpdateArticle(@PathVariable("uuidCommande")UUID uuidCommande,
          @PathVariable("uuidLigneCommande")UUID uuidLigneCommande, @PathVariable("UuidArticle")UUID newdUuidArticle);
 
-    @GetMapping(value = APP_ROOT + "/commandeClients/recherche/{uuidCmdClient}")
-    ResponseEntity<CommandeClientsDto> findByUUID (@PathVariable UUID uuidCmdClient);
+    @GetMapping(value = APP_ROOT + "/commandeClients/recherche/{uuidCmdClient}",
+            produces = MediaType.APPLICATION_JSON_VALUE  // ✅ Important !
+)
+    ResponseEntity<CommandeClientListDto> findByUUID (@PathVariable UUID uuidCmdClient);
 
-    @GetMapping(value = APP_ROOT + "/commandeClients/{reference}")
-    ResponseEntity<CommandeClientsDto> findByReference (@PathVariable String reference);
+    @GetMapping(value = APP_ROOT + "/commandeClients/{reference}",
+            produces = MediaType.APPLICATION_JSON_VALUE  // ✅ Important !
+)
+    ResponseEntity<CommandeClientListDto> findByReference (@PathVariable String reference);
 
-    @GetMapping(value = APP_ROOT + "/commandeClients/ligneCommande/{uuidCommande}")
-    ResponseEntity<List<LigneCommandeClientsDto>> findAllLignesCommandeClientsByUuid(@PathVariable("uuidCommande") UUID uuidCommandeClients);
+    @GetMapping(value = APP_ROOT + "/commandeClients/ligneCommande/{uuidCommande}",
+            produces = MediaType.APPLICATION_JSON_VALUE  // ✅ Important !
+)
+    ResponseEntity<List<LigneCommandeClientSaveDto>> findAllLignesCommandeClientsByUuid(@PathVariable("uuidCommande") UUID uuidCommandeClients);
 
-    @GetMapping(value = APP_ROOT + "/commandeClients/allCmdClient")
-    ResponseEntity<List<CommandeClientsDto>> findAll ();
+    @GetMapping(value = APP_ROOT + "/commandeClients/allCmdClient",
+            produces = MediaType.APPLICATION_JSON_VALUE  // ✅ Important !
+)
+    ResponseEntity<List<CommandeClientListDto>> findAll ();
 
-    @DeleteMapping(value = APP_ROOT + "/commandeClients/delete/article/{uuidCommande}/{uuidLigneCommande}")
-    ResponseEntity<CommandeClientsDto> DeleteArticle(@PathVariable("uuidCommande") UUID uuidCommande,
+    @DeleteMapping(value = APP_ROOT + "/commandeClients/delete/article/{uuidCommande}/{uuidLigneCommande}",
+            produces = MediaType.APPLICATION_JSON_VALUE  // ✅ Important !
+)
+    ResponseEntity<CommandeClientListDto> DeleteArticle(@PathVariable("uuidCommande") UUID uuidCommande,
                                                     @PathVariable("uuidLigneCommande")UUID uuidLigneCommande);
 
-    @DeleteMapping(value = APP_ROOT + "/commandeClients/supprimer/{uuidCmdClient}")
-    ResponseEntity<CommandeClientsDto>delete(@PathVariable("uuidCmdClient") UUID uuid);
+    @DeleteMapping(value = APP_ROOT + "/commandeClients/supprimer/{uuidCmdClient}",
+consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE  // ✅ Important !
+)
+    ResponseEntity<Void>delete(@PathVariable("uuidCmdClient") UUID uuid);
 }

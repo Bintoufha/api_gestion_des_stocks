@@ -1,6 +1,6 @@
 package com.bintoufha.gestionStocks.services;
 
-import com.bintoufha.gestionStocks.dto.VentesDto;
+import com.bintoufha.gestionStocks.dto.vente.VentesDto;
 
 import java.util.List;
 import java.util.UUID;

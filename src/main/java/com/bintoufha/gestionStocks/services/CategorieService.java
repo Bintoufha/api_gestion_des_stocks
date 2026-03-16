@@ -1,20 +1,21 @@
 package com.bintoufha.gestionStocks.services;
 
 
-import com.bintoufha.gestionStocks.dto.CategoriesDto;
+import com.bintoufha.gestionStocks.dto.categorie.CategorieListDto;
+import com.bintoufha.gestionStocks.dto.categorie.CategorieSaveDto;
 
 import java.util.List;
 import java.util.UUID;
 
 public interface CategorieService {
 
-    CategoriesDto save (CategoriesDto dto);
+    CategorieSaveDto save(CategorieSaveDto dto);
 
-    CategoriesDto findByUuid(UUID uuid);
+    CategorieListDto findByUuid(UUID uuid);
 
-    CategoriesDto findByCode (String code);
+    CategorieListDto findByCode (String code);
 
-    List<CategoriesDto> findAll();
+    List<CategorieListDto> findAll();
 
     void delete(UUID uuid);
 }

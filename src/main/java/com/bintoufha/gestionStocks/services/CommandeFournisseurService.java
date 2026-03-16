@@ -1,9 +1,7 @@
 package com.bintoufha.gestionStocks.services;
 
-import com.bintoufha.gestionStocks.dto.CommandeClientsDto;
-import com.bintoufha.gestionStocks.dto.CommandeFournisseursDto;
-import com.bintoufha.gestionStocks.dto.LigneCommandeClientsDto;
-import com.bintoufha.gestionStocks.dto.LigneCommandeFournisseursDto;
+import com.bintoufha.gestionStocks.dto.commandeFournisseurs.CommandeFournisseurSaveDto;
+import com.bintoufha.gestionStocks.dto.commandeFournisseurs.CommandeFournisseursListDto;
 import com.bintoufha.gestionStocks.model.EtatCommande;
 
 import java.math.BigDecimal;
@@ -12,24 +10,25 @@ import java.util.UUID;
 
 public interface CommandeFournisseurService {
 
-    CommandeFournisseursDto save (CommandeFournisseursDto commandeFournisseursDto);
+    CommandeFournisseurSaveDto save (CommandeFournisseurSaveDto commandeFournisseursDto);
 
-    CommandeFournisseursDto UpdteEtatCommande(UUID uuidCommande, EtatCommande etatCommande);
+    CommandeFournisseursListDto UpdteEtatCommande(UUID uuidCommande, EtatCommande etatCommande);
 
-    CommandeFournisseursDto UpdateQuantiteCommande(UUID uuidCommande, UUID uuidLigneCommande, BigDecimal quantite);
+    CommandeFournisseursListDto UpdateQuantiteCommande(UUID uuidCommande, UUID uuidLigneCommande, BigDecimal quantite);
 
-    CommandeFournisseursDto UpdateFournisseurs (UUID uuidCommande, UUID uuidfournisseur);
+    CommandeFournisseursListDto UpdateFournisseurs (UUID uuidCommande, UUID uuidfournisseur);
 
-    CommandeFournisseursDto UpdateArticle(UUID uuidCommande, UUID uuidLigneCommande,UUID newdUuidArticle);
+    CommandeFournisseursListDto UpdateArticle(UUID uuidCommande, UUID uuidLigneCommande,UUID newdUuidArticle);
 
-    CommandeFournisseursDto DeleteArticle(UUID uuidCommande, UUID uuidLigneCommande);
+    CommandeFournisseursListDto DeleteArticle(UUID uuidCommande, UUID uuidLigneCommande);
 
-    CommandeFournisseursDto findByUUID (UUID uuid);
+    CommandeFournisseursListDto findByUUID (UUID uuid);
 
-    CommandeFournisseursDto findByReference (String reference);
+    CommandeFournisseursListDto findByReference (String reference);
 
-    List<CommandeFournisseursDto> findAll ();
-    List<LigneCommandeFournisseursDto> findAllLigneCommandeFournisseurByUuid(UUID uuidCommande);
+    List<CommandeFournisseursListDto> findAll ();
+
+//    List<LigneCommandeClientSaveDto> findAllLigneCommandeFournisseurByUuid(UUID uuidCommande);
 
     void delete(UUID uuid);
 }

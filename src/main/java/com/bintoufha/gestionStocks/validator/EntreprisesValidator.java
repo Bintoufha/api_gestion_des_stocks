@@ -1,6 +1,6 @@
 package com.bintoufha.gestionStocks.validator;
 
-import com.bintoufha.gestionStocks.dto.EntrepriseDto;
+import com.bintoufha.gestionStocks.dto.entreprise.EntrepriseSaveDto;
 import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
@@ -8,7 +8,7 @@ import java.util.List;
 
 public class EntreprisesValidator {
 
-    public static List<String> validate(EntrepriseDto entrepriseDto){
+    public static List<String> validate(EntrepriseSaveDto entrepriseDto){
         List<String> errors = new ArrayList<>();
         if (entrepriseDto == null){
             errors.add("Veuillez renseigner le nom de l'entreprise");
@@ -16,9 +16,10 @@ public class EntreprisesValidator {
             errors.add("Veuillez reseigner le code fiscal de l'entreprise");
             errors.add("Veuillez reseigner l'email de l'entreprise");
             errors.add("Veuillez reseigner le numero de telephone de l'entreprise");
-            errors.addAll(AddresseValidator.validate(null));            return errors;
+            errors.addAll(AddresseValidator.validate(null));
+            return errors;
         }
-        if (!StringUtils.isEmpty(entrepriseDto.getNomEntreprise())) {
+        if (!StringUtils.hasLength(entrepriseDto.getNomEntreprise())) {
             errors.add("Veuillez renseigner le nom de entreprise");
         }
         if (!StringUtils.hasLength(entrepriseDto.getDescription())) {
@@ -33,6 +34,7 @@ public class EntreprisesValidator {
         if (!StringUtils.hasLength(entrepriseDto.getNumero())) {
             errors.add("Veuillez reseigner le numero de telephone de l'entreprise");
         }
+
         errors.addAll(AddresseValidator.validate(entrepriseDto.getAddresse()));
         return errors;
     }

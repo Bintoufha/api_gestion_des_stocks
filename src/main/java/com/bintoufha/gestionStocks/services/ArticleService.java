@@ -1,30 +1,31 @@
 package com.bintoufha.gestionStocks.services;
 
-import com.bintoufha.gestionStocks.dto.ArticlesDto;
-import com.bintoufha.gestionStocks.dto.LigneCommandeClientsDto;
-import com.bintoufha.gestionStocks.dto.LigneCommandeFournisseursDto;
-import com.bintoufha.gestionStocks.dto.LigneVenteDto;
+import com.bintoufha.gestionStocks.dto.article.ArticleListDto;
+import com.bintoufha.gestionStocks.dto.article.ArticleSaveDto;
+import com.bintoufha.gestionStocks.dto.ligneCommandeClient.LigneCommandeClientSaveDto;
+import com.bintoufha.gestionStocks.dto.ligneCommandeFournisseurs.LigneCommandeFournisseurSaveDto;
+import com.bintoufha.gestionStocks.dto.ligneVente.LigneVenteDto;
 
 import java.util.List;
 import java.util.UUID;
 
 public interface ArticleService {
 
-    ArticlesDto save (ArticlesDto dto);
+    ArticleSaveDto save (ArticleSaveDto dto);
 
-    ArticlesDto findByUuid(UUID uuid);
+    ArticleListDto findByUuid(UUID uuid);
 
     //ArticlesDto findByCodeArticle (String codeArticle);
 
-    List<ArticlesDto> findAll();
+    List<ArticleListDto> findAll();
 
     List<LigneVenteDto> findHistoriqueVente(UUID uuidArticle);
 
-    List<LigneCommandeClientsDto> findHistoriqueCommandeCLients(UUID uuidArticle);
+    List<LigneCommandeClientSaveDto> findHistoriqueCommandeCLients(UUID uuidArticle);
 
-    List<LigneCommandeFournisseursDto> findHistoriqueCommandeFournisseurs(UUID uuidArticle);
+    List<LigneCommandeFournisseurSaveDto> findHistoriqueCommandeFournisseurs(UUID uuidArticle);
 
-    List<ArticlesDto> findAllArticleByCategorieUuid (UUID uuidCategorie);
+//    List<ArticlesDto> findAllArticleByCategorieUuid (UUID uuidCategorie);
 
     void delete(UUID uuid);
 }

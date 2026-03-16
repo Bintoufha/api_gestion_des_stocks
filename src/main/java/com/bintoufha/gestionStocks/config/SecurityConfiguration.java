@@ -13,9 +13,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.Arrays;
+import java.util.List;
 
 @Configuration
 @EnableWebSecurity
@@ -38,15 +41,21 @@ public class SecurityConfiguration {
 
         http
                 .csrf(csrf -> csrf.disable())
-                //.cors(cors -> cors.configurationSource(corsConfigurationSource())) // ← Ajouter CORS
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))  // ✅ Activation CORS
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/gestiondesstocks/v1/auth/authenticate").permitAll()  // login et register accessibles
+                        // Routes publiques
+                        .requestMatchers("/gestiondesstocks/v1/auth/authenticate").permitAll()
                         .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
                         .requestMatchers("/gestiondesstocks/v1/utilisateurs/email/**").permitAll()
                         .requestMatchers("/gestiondesstocks/v1/entreprises/**").permitAll()
-                        //.requestMatchers("/admin/**").hasRole("ADMIN")
-                        .anyRequest().authenticated()
 
+                        // Routes protégées par rôles
+                        .requestMatchers("/gestiondesstocks/v1/admin/**").hasRole("SUPER_ADMIN")
+                        .requestMatchers("/gestiondesstocks/v1/entreprises/**").hasAnyRole("ADMIN_BOUTIQUE", "SUPER_ADMIN")
+                        .requestMatchers("/gestiondesstocks/v1/stock/**").hasAnyRole("EMPLOYE_STOCK", "RESPONSABLE_STOCK",
+                                "ADMIN_BOUTIQUE", "SUPER_ADMIN")
+                        .requestMatchers("/gestiondesstocks/v1/vente/**").hasAnyRole("EMPLOYE_VENTE", "ADMIN_BOUTIQUE", "SUPER_ADMIN")
+                        .anyRequest().authenticated()
                 )
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 );
@@ -55,25 +64,23 @@ public class SecurityConfiguration {
 
         return http.build();
     }
-    // 2️⃣ AuthentificationManager (utilise automatiquement UserDetailsService + PasswordEncoder)
+
+    // ✅ Configuration CORS (Backend accepte Angular)
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration config = new CorsConfiguration();
+        config.setAllowedOrigins(List.of("http://localhost:4200"));
+        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
+        config.setAllowedHeaders(List.of("*"));
+        config.setAllowCredentials(true);
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", config);
+        return source;
+    }
 
     @Bean
     public AuthenticationManager authManager(AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();
     }
-
-
-    // Configuration CORS recommandée
-   // @Bean
-//    public CorsConfigurationSource corsConfigurationSource() {
-//        CorsConfiguration configuration = new CorsConfiguration();
-//        configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000", "https://votre-domaine.com"));
-//        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-//        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "X-Requested-With"));
-//        configuration.setAllowCredentials(true);
-//
-//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-//        source.registerCorsConfiguration("/**", configuration);
-//        return source;
-//    }
 }

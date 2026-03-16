@@ -1,6 +1,6 @@
 package com.bintoufha.gestionStocks.validator;
 
-import com.bintoufha.gestionStocks.dto.CommandeFournisseursDto;
+import com.bintoufha.gestionStocks.dto.commandeFournisseurs.CommandeFournisseurSaveDto;
 import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
@@ -8,7 +8,7 @@ import java.util.List;
 
 public class CommandeFournisseurValidator {
 
-    public static List<String> validate(CommandeFournisseursDto dto) {
+    public static List<String> validate(CommandeFournisseurSaveDto dto) {
         List<String> errors = new ArrayList<>();
         if (dto == null) {
             errors.add("Veuillez renseigner le code de la commande");
@@ -27,7 +27,7 @@ public class CommandeFournisseurValidator {
         if (!StringUtils.hasLength(dto.getEtatCommande().toString())) {
             errors.add("Veuillez renseigner l'etat de la commande");
         }
-        if (dto.getFournisseurs() == null || dto.getFournisseurs().getUuid() == null) {
+        if (dto.getFournisseursUuid() == null) {
             errors.add("Veuillez renseigner le fournisseur");
         }
 

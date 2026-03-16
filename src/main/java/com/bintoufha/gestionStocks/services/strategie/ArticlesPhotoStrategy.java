@@ -1,9 +1,10 @@
 package com.bintoufha.gestionStocks.services.strategie;
 
-import com.bintoufha.gestionStocks.dto.ArticlesDto;
+import com.bintoufha.gestionStocks.dto.article.ArticleSaveDto;
 import com.bintoufha.gestionStocks.exception.EntityNoFoundException;
 import com.bintoufha.gestionStocks.exception.ErrorCodes;
 import com.bintoufha.gestionStocks.exception.InvalidOperationException;
+import com.bintoufha.gestionStocks.mapper.ArticleMapper;
 import com.bintoufha.gestionStocks.model.Articles;
 import com.bintoufha.gestionStocks.repository.ArticleRepository;
 import com.bintoufha.gestionStocks.services.ImageService;
@@ -16,7 +17,7 @@ import java.util.UUID;
 
 @Service
 @Slf4j
-public class ArticlesPhotoStrategy implements PhotoStrategie<ArticlesDto> {
+public class ArticlesPhotoStrategy implements PhotoStrategie<ArticleSaveDto> {
 
     private final ArticleRepository articleRepository;
     private final ImageService imageService;
@@ -33,7 +34,7 @@ public class ArticlesPhotoStrategy implements PhotoStrategie<ArticlesDto> {
     }
 
     @Override
-    public ArticlesDto savePhoto(UUID entiteUuid, MultipartFile file, String titre) {
+    public ArticleSaveDto savePhoto(UUID entiteUuid, MultipartFile file, String titre) {
 
         // 1. Trouver le client d'abord
         Articles articles = articleRepository.findByUuid(entiteUuid)
@@ -64,6 +65,6 @@ public class ArticlesPhotoStrategy implements PhotoStrategie<ArticlesDto> {
         articles.setPhotoArticle(fileName);
         Articles savedArticles = articleRepository.save(articles);
 
-        return ArticlesDto.fromEntity(savedArticles);
+        return ArticleMapper.toSaveDto(savedArticles);
     }
 }

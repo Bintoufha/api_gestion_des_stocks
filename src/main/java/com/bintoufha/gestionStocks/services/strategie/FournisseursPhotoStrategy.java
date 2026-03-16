@@ -1,9 +1,10 @@
 package com.bintoufha.gestionStocks.services.strategie;
 
-import com.bintoufha.gestionStocks.dto.FournisseursDto;
+import com.bintoufha.gestionStocks.dto.fournisseurs.FournisseurSaveDto;
 import com.bintoufha.gestionStocks.exception.EntityNoFoundException;
 import com.bintoufha.gestionStocks.exception.ErrorCodes;
 import com.bintoufha.gestionStocks.exception.InvalidOperationException;
+import com.bintoufha.gestionStocks.mapper.FournisseurMapper;
 import com.bintoufha.gestionStocks.model.Fournisseurs;
 import com.bintoufha.gestionStocks.repository.FournisseursRepository;
 import com.bintoufha.gestionStocks.services.ImageService;
@@ -16,7 +17,7 @@ import java.util.UUID;
 
 @Service
 @Slf4j
-public class FournisseursPhotoStrategy implements PhotoStrategie<FournisseursDto> {
+public class FournisseursPhotoStrategy implements PhotoStrategie<FournisseurSaveDto> {
 
     private final FournisseursRepository fournisseursRepository;
     private final ImageService imageService;
@@ -33,7 +34,7 @@ public class FournisseursPhotoStrategy implements PhotoStrategie<FournisseursDto
     }
 
     @Override
-    public FournisseursDto savePhoto(UUID entiteUuid, MultipartFile file, String titre) {
+    public FournisseurSaveDto savePhoto(UUID entiteUuid, MultipartFile file, String titre) {
 
         // 1. Trouver le client d'abord
         Fournisseurs fournisseurs = fournisseursRepository.findByUuid(entiteUuid)
@@ -64,6 +65,6 @@ public class FournisseursPhotoStrategy implements PhotoStrategie<FournisseursDto
         fournisseurs.setPhotoFournisseurs(fileName);
         Fournisseurs savedFournisseurs = fournisseursRepository.save(fournisseurs);
 
-        return FournisseursDto.fromEntity(savedFournisseurs);
+        return FournisseurMapper.toSaveDto(savedFournisseurs);
     }
 }

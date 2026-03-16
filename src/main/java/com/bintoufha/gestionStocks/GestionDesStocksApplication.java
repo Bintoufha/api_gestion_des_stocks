@@ -9,9 +9,13 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 public class GestionDesStocksApplication {
 
 	public static void main(String[] args) {
+
 		SpringApplication.run(GestionDesStocksApplication.class, args);
 	}
 
 }
+
+// sudo mvn clean install -DskipTests
+
 
 

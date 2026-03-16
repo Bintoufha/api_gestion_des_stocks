@@ -1,7 +1,6 @@
 package com.bintoufha.gestionStocks.validator;
 
-import com.bintoufha.gestionStocks.dto.ArticlesDto;
-import com.bintoufha.gestionStocks.dto.ClientsDto;
+import com.bintoufha.gestionStocks.dto.client.ClientSaveDto;
 import io.micrometer.common.util.StringUtils;
 
 import java.util.ArrayList;
@@ -9,7 +8,7 @@ import java.util.List;
 
 public class ClientValidator {
 
-    public static List<String> validate(ClientsDto Dtoclients){
+    public static List<String> validate(ClientSaveDto Dtoclients){
         List<String> errors = new ArrayList<>();
         if (Dtoclients == null){
             errors.add("Veuillez renseigner le nom et prenom du client");
@@ -18,14 +17,14 @@ public class ClientValidator {
             errors.addAll(AddresseValidator.validate(null));
             return errors;
         }
-        if (!StringUtils.isEmpty(Dtoclients.getNomPrenomClient())) {
+        if (StringUtils.isEmpty(Dtoclients.getNomPrenomClient())) {
             errors.add("Veuillez renseigner le nom et prenom du client");
         }
-        if (!StringUtils.isEmpty(Dtoclients.getEmailClient())) {
+        if (StringUtils.isEmpty(Dtoclients.getEmailClient())) {
             errors.add("Veuillez renseigner le mail de client");
         }
-        if (!StringUtils.isEmpty(Dtoclients.getTelephoneClient())) {
-            errors.add("Veuillez renseigner le mail de client");
+        if (StringUtils.isEmpty(Dtoclients.getTelephoneClient())) {
+            errors.add("Veuillez renseigner le numero de client");
         }
         errors.addAll(AddresseValidator.validate(Dtoclients.getAddresse()));
         return errors;

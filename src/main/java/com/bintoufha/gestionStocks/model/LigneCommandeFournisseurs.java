@@ -18,14 +18,11 @@ public class LigneCommandeFournisseurs extends AbstractEntity {
     @JoinColumn(name = "uuidArticle")
     private Articles articles;
 
-    @JoinColumn(name = "quantite")
+    @Column(name = "quantite")
     private BigDecimal quantite;
 
-    @JoinColumn(name = "prixUnitaire")
+    @Column(name = "prixUnitaire")
     private  BigDecimal prixUnitaire;
-
-    @Column(name = "uuidEntreprise")
-    private UUID idEntreprise;
 
     @ManyToOne
     @JoinColumn(name = "uuidCommandeFournisseurs")

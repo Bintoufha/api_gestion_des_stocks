@@ -27,7 +27,7 @@ public class Ventes extends AbstractEntity {
     private String reference;
 
     @Column(name = "typeVente")
-    private String typeVente;
+    private String valorisationMethod;
 
     @Column(name = "dateVente")
     private Instant dateCommande;

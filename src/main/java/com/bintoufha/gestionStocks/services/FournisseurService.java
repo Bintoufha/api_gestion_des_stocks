@@ -1,8 +1,7 @@
 package com.bintoufha.gestionStocks.services;
 
-import com.bintoufha.gestionStocks.dto.FournisseursDto;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
+import com.bintoufha.gestionStocks.dto.fournisseurs.FournisseurListDto;
+import com.bintoufha.gestionStocks.dto.fournisseurs.FournisseurSaveDto;
 
 import java.util.List;
 import java.util.UUID;
@@ -10,11 +9,11 @@ import java.util.UUID;
 
 
 public interface FournisseurService {
-    FournisseursDto save (FournisseursDto fournisseursDto);
+    FournisseurSaveDto save (FournisseurSaveDto fournisseursDto);
 
-    FournisseursDto findByUuid(UUID uuid);
+    FournisseurListDto findByUuid(UUID uuid);
 
-    List<FournisseursDto> findAll();
+    List<FournisseurListDto> findAll();
 
     void deleteByUuid(UUID uuid);
 }

@@ -1,9 +1,10 @@
 package com.bintoufha.gestionStocks.services.strategie;
 
-import com.bintoufha.gestionStocks.dto.ClientsDto;
+import com.bintoufha.gestionStocks.dto.client.ClientSaveDto;
 import com.bintoufha.gestionStocks.exception.EntityNoFoundException;
 import com.bintoufha.gestionStocks.exception.ErrorCodes;
 import com.bintoufha.gestionStocks.exception.InvalidOperationException;
+import com.bintoufha.gestionStocks.mapper.ClientMapper;
 import com.bintoufha.gestionStocks.model.Clients;
 import com.bintoufha.gestionStocks.repository.ClientsRepository;
 import com.bintoufha.gestionStocks.services.ImageService;
@@ -12,12 +13,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.InputStream;
 import java.util.UUID;
 
 @Service
 @Slf4j
-public class ClientPhotoStrategy implements PhotoStrategie<ClientsDto> {
+public class ClientPhotoStrategy implements PhotoStrategie<ClientSaveDto> {
 
     private final ClientsRepository clientsRepository;
     private final ImageService imageService;
@@ -34,7 +34,7 @@ public class ClientPhotoStrategy implements PhotoStrategie<ClientsDto> {
     }
 
     @Override
-    public ClientsDto savePhoto(UUID entiteUuid, MultipartFile file, String titre) {
+    public ClientSaveDto savePhoto(UUID entiteUuid, MultipartFile file, String titre) {
 
         // 1. Trouver le client d'abord
         Clients client = clientsRepository.findByUuid(entiteUuid)
@@ -65,6 +65,6 @@ public class ClientPhotoStrategy implements PhotoStrategie<ClientsDto> {
         client.setPhotoClient(fileName);
         Clients savedClient = clientsRepository.save(client);
 
-        return ClientsDto.fromEntity(savedClient);
+        return ClientMapper.toSaveDto(savedClient);
     }
 }

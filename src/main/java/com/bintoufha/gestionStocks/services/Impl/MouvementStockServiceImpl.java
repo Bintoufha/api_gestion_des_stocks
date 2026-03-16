@@ -1,8 +1,10 @@
 package com.bintoufha.gestionStocks.services.Impl;
 
-import com.bintoufha.gestionStocks.dto.MouvementStocksDto;
+import com.bintoufha.gestionStocks.dto.mouvement.MouvementStocksDto;
 import com.bintoufha.gestionStocks.exception.ErrorCodes;
 import com.bintoufha.gestionStocks.exception.InvalEntityException;
+import com.bintoufha.gestionStocks.mapper.CategorieMapper;
+import com.bintoufha.gestionStocks.mapper.MouvementMapper;
 import com.bintoufha.gestionStocks.model.TypeMvtStocks;
 import com.bintoufha.gestionStocks.repository.MouvementStockRepository;
 import com.bintoufha.gestionStocks.services.ArticleService;
@@ -40,9 +42,13 @@ public class MouvementStockServiceImpl implements MouvementStockService {
 
     @Override
     public List<MouvementStocksDto> mvtStockArticle(UUID uuidArticle) {
-        return mvtRepository.findAllByArticlesUuid(uuidArticle).stream()
-                .map(MouvementStocksDto::fromEntity)
-                .collect(Collectors.toList());
+        return mvtRepository.findAllByArticlesUuid(uuidArticle)
+                .stream()
+                .map(mvt -> {
+                    // ou via TarificationService si besoin
+                    return MouvementMapper.fromEntity(mvt);
+                })
+                .toList();
     }
 
     @Override
@@ -77,10 +83,11 @@ public class MouvementStockServiceImpl implements MouvementStockService {
                 )
         );
         mvtPositive.setTypeMouvement(typeMvtStocks);
-        return MouvementStocksDto.fromEntity(
-                mvtRepository.save(MouvementStocksDto.toEntity(mvtPositive))
+        return MouvementMapper.fromEntity(
+                mvtRepository.save(MouvementMapper.toEntity(mvtPositive))
         );
     }
+
     private MouvementStocksDto sortieNegative(MouvementStocksDto mvtNegative, TypeMvtStocks typeMvtStocks) {
         List<String> errors = MouvementStockValidator.validate(mvtNegative);
         if (!errors.isEmpty()) {
@@ -93,8 +100,8 @@ public class MouvementStockServiceImpl implements MouvementStockService {
                 )
         );
         mvtNegative.setTypeMouvement(typeMvtStocks);
-        return MouvementStocksDto.fromEntity(
-                mvtRepository.save(MouvementStocksDto.toEntity(mvtNegative))
+        return MouvementMapper.fromEntity(
+                mvtRepository.save(MouvementMapper.toEntity(mvtNegative))
         );
     }
 }

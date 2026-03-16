@@ -1,9 +1,10 @@
 package com.bintoufha.gestionStocks.services.strategie;
 
-import com.bintoufha.gestionStocks.dto.EntrepriseDto;
+import com.bintoufha.gestionStocks.dto.entreprise.EntrepriseSaveDto;
 import com.bintoufha.gestionStocks.exception.EntityNoFoundException;
 import com.bintoufha.gestionStocks.exception.ErrorCodes;
 import com.bintoufha.gestionStocks.exception.InvalidOperationException;
+import com.bintoufha.gestionStocks.mapper.EntrepriseMapper;
 import com.bintoufha.gestionStocks.model.Entreprises;
 import com.bintoufha.gestionStocks.repository.EntrepriseRepository;
 import com.bintoufha.gestionStocks.services.ImageService;
@@ -16,7 +17,7 @@ import java.util.UUID;
 
 @Service
 @Slf4j
-public class EntreprisePhotoStrategy implements PhotoStrategie<EntrepriseDto> {
+public class EntreprisePhotoStrategy implements PhotoStrategie<EntrepriseSaveDto> {
 
     private final EntrepriseRepository entrepriseRepository;
     private final ImageService imageService;
@@ -33,7 +34,7 @@ public class EntreprisePhotoStrategy implements PhotoStrategie<EntrepriseDto> {
     }
 
     @Override
-    public EntrepriseDto savePhoto(UUID entiteUuid, MultipartFile file, String titre) {
+    public EntrepriseSaveDto savePhoto(UUID entiteUuid, MultipartFile file, String titre) {
 
         // 1. Trouver le client d'abord
         Entreprises entreprises = entrepriseRepository.findByUuid(entiteUuid)
@@ -64,6 +65,6 @@ public class EntreprisePhotoStrategy implements PhotoStrategie<EntrepriseDto> {
         entreprises.setPhotoEntreprise(fileName);
         Entreprises savedEntreprises = entrepriseRepository.save(entreprises);
 
-        return EntrepriseDto.fromEntity(savedEntreprises);
+        return EntrepriseMapper.fromEntity(savedEntreprises);
     }
 }

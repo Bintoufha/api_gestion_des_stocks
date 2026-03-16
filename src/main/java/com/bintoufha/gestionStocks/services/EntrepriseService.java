@@ -1,19 +1,26 @@
 package com.bintoufha.gestionStocks.services;
 
-import com.bintoufha.gestionStocks.dto.EntrepriseDto;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
+import com.bintoufha.gestionStocks.dto.entreprise.EntrepriseListDto;
+import com.bintoufha.gestionStocks.dto.entreprise.EntrepriseSaveDto;
+import com.bintoufha.gestionStocks.model.StatutEntreprise;
+
 
 import java.util.List;
 import java.util.UUID;
 
 
 public interface EntrepriseService {
-    EntrepriseDto save (EntrepriseDto entrepriseDto);
+    EntrepriseSaveDto save (EntrepriseSaveDto entrepriseDto);
 
-    EntrepriseDto findByUuid(UUID uuid);
+    EntrepriseListDto findByUuid(UUID uuid);
 
-    List<EntrepriseDto> findAll();
+    List<EntrepriseListDto> findAll();
+
+    List<EntrepriseListDto> getEntrepriseByTypeEntreprises(UUID typeUuid) ;
+
+    List<EntrepriseListDto> getEntrepriseByVille(String ville) ;
+
+    List<EntrepriseListDto> getEntrepriseByStatut(StatutEntreprise statut);
 
     void deleteByUuid(UUID uuid);
 }

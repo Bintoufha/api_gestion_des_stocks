@@ -1,6 +1,7 @@
 package com.bintoufha.gestionStocks.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.util.List;
@@ -15,12 +16,14 @@ import java.util.UUID;
 @Table(name = "clients")  // optionnelle si c'est pas definis il prendra le nom de la classe
 public class Clients extends AbstractEntity {
 
+    
     @Column(name = "nomPrenom")
     private String nomPrenomClient;
 
     @Column(name = "email")
     private String emailClient;
 
+    
     @Column(name = "telephone")
     private String telephoneClient;
 

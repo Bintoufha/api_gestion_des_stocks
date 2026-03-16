@@ -51,8 +51,22 @@ public enum ErrorCodes {
 
     // Liste des exception techniaues
     UPDATE_PHOTO_EXCEPTION(14000),
-    UNKNOWN_CONTEXT(14001)
-    ;
+    UNKNOWN_CONTEXT(14001),
+
+
+    CONFIG_NOT_FOUND(15000),
+    CONFIG_NOT_VALID(15001),
+
+    STOCK_NOT_FOUND(16000),
+    STOCK_INSUFFISSANT(16001),
+
+    INVALID_OPERATION(17001),
+
+    TYPE_BOUTIQUE_NOT_VALID(18001),
+
+    ROLE_NOT_FOUND(19001),
+
+    PERMISSION_NOT_FOUND(20001);
     private int code;
     ErrorCodes(int code){
         this.code = code ;

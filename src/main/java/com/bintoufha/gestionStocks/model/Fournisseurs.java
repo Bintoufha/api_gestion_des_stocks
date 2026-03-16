@@ -1,6 +1,5 @@
 package com.bintoufha.gestionStocks.model;
 
-import com.bintoufha.gestionStocks.dto.CommandeFournisseursDto;
 import jakarta.persistence.*;
 import lombok.*;
 

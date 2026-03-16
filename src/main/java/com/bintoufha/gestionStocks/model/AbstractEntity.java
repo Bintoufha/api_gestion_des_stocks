@@ -23,7 +23,7 @@ public class AbstractEntity implements Serializable {
     @Id
     @UuidGenerator
     @GeneratedValue(generator = "uuid2")
-    @Column(name = "uuid", columnDefinition = "UUID")//updatable = false, nullable = false
+    @Column(name = "uuid", columnDefinition = "uuid")//updatable = false, nullable = false
     private UUID uuid;
 
     @CreatedDate

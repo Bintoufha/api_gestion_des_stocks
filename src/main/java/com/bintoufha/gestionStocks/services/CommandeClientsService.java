@@ -1,7 +1,8 @@
 package com.bintoufha.gestionStocks.services;
 
-import com.bintoufha.gestionStocks.dto.CommandeClientsDto;
-import com.bintoufha.gestionStocks.dto.LigneCommandeClientsDto;
+import com.bintoufha.gestionStocks.dto.commandeClient.CommandeClientListDto;
+import com.bintoufha.gestionStocks.dto.commandeClient.CommandeClientSaveDto;
+import com.bintoufha.gestionStocks.dto.ligneCommandeClient.LigneCommandeClientSaveDto;
 import com.bintoufha.gestionStocks.model.EtatCommande;
 
 import java.math.BigDecimal;
@@ -10,25 +11,25 @@ import java.util.UUID;
 
 public interface CommandeClientsService {
 
-    CommandeClientsDto save (CommandeClientsDto commandeClientsDto);
+    CommandeClientSaveDto save (CommandeClientSaveDto commandeClientsDto);
 
-    CommandeClientsDto findByUUID (UUID uuid);
+    CommandeClientListDto findByUUID (UUID uuid);
 
-    CommandeClientsDto UpdteCommandeClients(UUID uuidCommande, EtatCommande etatCommande);
+    CommandeClientListDto UpdteCommandeClients(UUID uuidCommande, EtatCommande etatCommande);
 
-    CommandeClientsDto UpdateQuantiteCommande(UUID uuidCommande, UUID uuidLigneCommande, BigDecimal quantite);
+    CommandeClientListDto UpdateQuantiteCommande(UUID uuidCommande, UUID uuidLigneCommande, BigDecimal quantite);
 
-    CommandeClientsDto UpdateClient (UUID uuidCommande, UUID uuidClient);
+    CommandeClientListDto UpdateClient (UUID uuidCommande, UUID uuidClient);
 
-    CommandeClientsDto UpdateArticle(UUID uuidCommande, UUID uuidLigneCommande,UUID newdUuidArticle);
+    CommandeClientListDto UpdateArticle(UUID uuidCommande, UUID uuidLigneCommande,UUID newdUuidArticle);
 
-    CommandeClientsDto DeleteArticle(UUID uuidCommande, UUID uuidLigneCommande);
+    CommandeClientListDto DeleteArticle(UUID uuidCommande, UUID uuidLigneCommande);
 
-    CommandeClientsDto findByReference (String reference);
+    CommandeClientListDto findByReference (String reference);
 
-    List<CommandeClientsDto> findAll ();
+    List<CommandeClientListDto> findAll ();
 
-    List<LigneCommandeClientsDto> findAllLignesCommandeClientsByUuid(UUID uuidCommandeClients);
+    List<LigneCommandeClientSaveDto> findAllLignesCommandeClientsByUuid(UUID uuidCommandeClients);
 
     void delete(UUID uuid);
 }

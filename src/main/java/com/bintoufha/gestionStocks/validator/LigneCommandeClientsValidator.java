@@ -1,15 +1,13 @@
 package com.bintoufha.gestionStocks.validator;
 
-import com.bintoufha.gestionStocks.dto.ArticlesDto;
-import com.bintoufha.gestionStocks.dto.CommandeClientsDto;
-import io.micrometer.common.util.StringUtils;
+import com.bintoufha.gestionStocks.dto.commandeClient.CommandeClientSaveDto;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class LigneCommandeClientsValidator {
 
-    public static List<String> validate(CommandeClientsDto commandeClientsDto) {
+    public static List<String> validate(CommandeClientSaveDto commandeClientsDto) {
         List<String> errors = new ArrayList<>();
         if (commandeClientsDto == null) {
             errors.add("Veuillez renseigner le champs code de article");

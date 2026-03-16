@@ -1,7 +1,7 @@
 package com.bintoufha.gestionStocks.controllers;
 
 import com.bintoufha.gestionStocks.controllers.api.VentesApi;
-import com.bintoufha.gestionStocks.dto.VentesDto;
+import com.bintoufha.gestionStocks.dto.vente.VentesDto;
 import com.bintoufha.gestionStocks.services.VenteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

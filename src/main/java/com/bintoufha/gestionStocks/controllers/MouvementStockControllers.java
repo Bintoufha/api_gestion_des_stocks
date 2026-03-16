@@ -1,7 +1,7 @@
 package com.bintoufha.gestionStocks.controllers;
 
 import com.bintoufha.gestionStocks.controllers.api.MouvementStocksApi;
-import com.bintoufha.gestionStocks.dto.MouvementStocksDto;
+import com.bintoufha.gestionStocks.dto.mouvement.MouvementStocksDto;
 import com.bintoufha.gestionStocks.services.MouvementStockService;
 import org.springframework.web.bind.annotation.RestController;
 

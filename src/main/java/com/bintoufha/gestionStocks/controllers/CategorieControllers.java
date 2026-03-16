@@ -1,7 +1,8 @@
 package com.bintoufha.gestionStocks.controllers;
 
 import com.bintoufha.gestionStocks.controllers.api.CategorieApi;
-import com.bintoufha.gestionStocks.dto.CategoriesDto;
+import com.bintoufha.gestionStocks.dto.categorie.CategorieListDto;
+import com.bintoufha.gestionStocks.dto.categorie.CategorieSaveDto;
 import com.bintoufha.gestionStocks.services.CategorieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,22 +22,22 @@ public class CategorieControllers implements CategorieApi {
     }
 
     @Override
-    public ResponseEntity<CategoriesDto> save(CategoriesDto dto) {
+    public ResponseEntity<CategorieSaveDto> save(CategorieSaveDto dto) {
         return ResponseEntity.ok(categorieService.save(dto));
     }
 
     @Override
-    public ResponseEntity<CategoriesDto> findByUuid(UUID uuid) {
+    public ResponseEntity<CategorieListDto> findByUuid(UUID uuid) {
         return ResponseEntity.ok(categorieService.findByUuid(uuid));
     }
 
     @Override
-    public ResponseEntity<CategoriesDto> findByCode(String code) {
+    public ResponseEntity<CategorieListDto> findByCode(String code) {
         return ResponseEntity.ok(categorieService.findByCode(code));
     }
 
     @Override
-    public ResponseEntity<List<CategoriesDto>> findAll() {
+    public ResponseEntity<List<CategorieListDto>> findAll() {
         return ResponseEntity.ok(categorieService.findAll());
     }
 

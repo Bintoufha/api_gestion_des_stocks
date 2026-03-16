@@ -1,16 +1,17 @@
 package com.bintoufha.gestionStocks.services;
 
-import com.bintoufha.gestionStocks.dto.ClientsDto;
+import com.bintoufha.gestionStocks.dto.client.ClientListDto;
+import com.bintoufha.gestionStocks.dto.client.ClientSaveDto;
 
 import java.util.List;
 import java.util.UUID;
 
 public interface ClientService {
-    ClientsDto save (ClientsDto clientsDto);
+    ClientSaveDto save (ClientSaveDto clientsDto);
 
-    ClientsDto findByUuid(UUID uuid);
+    ClientListDto findByUuid(UUID uuid);
 
-    List<ClientsDto> findAll();
+    List<ClientListDto> findAll();
 
     void deleteByUuid(UUID uuid);
 }

@@ -1,6 +1,6 @@
 package com.bintoufha.gestionStocks.validator;
 
-import com.bintoufha.gestionStocks.dto.AddresseDto;
+import com.bintoufha.gestionStocks.dto.addresse.AddresseDataDto;
 import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
@@ -8,7 +8,7 @@ import java.util.List;
 
 public class AddresseValidator {
 
-    public static List<String> validate(AddresseDto adresseDto) {
+    public static List<String> validate(AddresseDataDto adresseDto) {
         List<String> errors = new ArrayList<>();
 
         if (adresseDto == null) {

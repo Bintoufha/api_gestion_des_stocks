@@ -15,6 +15,9 @@ public interface Constante {
 //    authentification
     String AUTHENTICATE_ENDPOINT =APP_ROOT + "/auth/authenticate";
 
+    String AUTHENTICATE_ENDPOINT_VERIFY_TOKEN=APP_ROOT + "/auth/verify-token";
+    String AUTHENTICATE_ENDPOINT_ME = APP_ROOT + "/auth/me";
+
 
 /*
 4588c800-8272-11f0-b6cb-9d9f53b1868b

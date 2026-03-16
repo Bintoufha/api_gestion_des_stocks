@@ -36,6 +36,7 @@ public class RestExceptionHandler {
                 .codes(exception.getErrorCodes())
                 .httpCode(notFound.value())
                 .message(exception.getMessage())
+                .errors(exception.getErrors())
                 .build();
 
         return new ResponseEntity<>(errorDto, notFound);

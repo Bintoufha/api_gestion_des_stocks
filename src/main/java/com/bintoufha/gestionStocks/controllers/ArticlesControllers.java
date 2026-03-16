@@ -1,10 +1,11 @@
 package com.bintoufha.gestionStocks.controllers;
 
 import com.bintoufha.gestionStocks.controllers.api.ArticlesApi;
-import com.bintoufha.gestionStocks.dto.ArticlesDto;
-import com.bintoufha.gestionStocks.dto.LigneCommandeClientsDto;
-import com.bintoufha.gestionStocks.dto.LigneCommandeFournisseursDto;
-import com.bintoufha.gestionStocks.dto.LigneVenteDto;
+import com.bintoufha.gestionStocks.dto.article.ArticleListDto;
+import com.bintoufha.gestionStocks.dto.article.ArticleSaveDto;
+import com.bintoufha.gestionStocks.dto.ligneCommandeClient.LigneCommandeClientSaveDto;
+import com.bintoufha.gestionStocks.dto.ligneCommandeFournisseurs.LigneCommandeFournisseurSaveDto;
+import com.bintoufha.gestionStocks.dto.ligneVente.LigneVenteDto;
 import com.bintoufha.gestionStocks.services.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,17 +24,17 @@ public class ArticlesControllers implements ArticlesApi {
     }
 
     @Override
-    public ArticlesDto save(ArticlesDto dto) {
+    public ArticleSaveDto save(ArticleSaveDto dto) {
         return articleService.save(dto);
     }
 
     @Override
-    public ArticlesDto findByUUID(UUID uuid) {
+    public ArticleListDto findByUUID(UUID uuid) {
         return articleService.findByUuid(uuid);
     }
 
     @Override
-    public List<ArticlesDto> findAll() {
+    public List<ArticleListDto> findAll() {
         return articleService.findAll();
     }
 
@@ -43,19 +44,19 @@ public class ArticlesControllers implements ArticlesApi {
     }
 
     @Override
-    public List<LigneCommandeClientsDto> findHistoriqueCommandeCLients(UUID uuidArticle) {
+    public List<LigneCommandeClientSaveDto> findHistoriqueCommandeCLients(UUID uuidArticle) {
         return articleService.findHistoriqueCommandeCLients(uuidArticle);
     }
 
     @Override
-    public List<LigneCommandeFournisseursDto> findHistoriqueCommandeFournisseurs(UUID uuidArticle) {
+    public List<LigneCommandeFournisseurSaveDto> findHistoriqueCommandeFournisseurs(UUID uuidArticle) {
         return articleService.findHistoriqueCommandeFournisseurs(uuidArticle);
     }
 
-    @Override
-    public List<ArticlesDto> findAllArticleByCategorieUuid(UUID uuidCategorie) {
-        return articleService.findAllArticleByCategorieUuid(uuidCategorie);
-    }
+//    @Override
+//    public List<ArticlesDto> findAllArticleByCategorieUuid(UUID uuidCategorie) {
+//        return articleService.findAllArticleByCategorieUuid(uuidCategorie);
+//    }
 
     //    @Override
 //    public ArticlesDto findByCodeArticle(String codeArticle) {

@@ -2,6 +2,8 @@ package com.bintoufha.gestionStocks.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 @Data
@@ -12,18 +14,21 @@ import lombok.*;
 @Embeddable
 public class Addresse {
 
+    
     @Column(name = "addresse1")
     private String Addresse1;
 
     @Column(name = "addresse2")
     private String Addresse2;
 
+    
     @Column(name = "ville")
     private String Ville;
 
     @Column(name = "codepostale")
     private String CodePostale;
 
+    
     @Column(name = "pays")
     private String Pays;
 }

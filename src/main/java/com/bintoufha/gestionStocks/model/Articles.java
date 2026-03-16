@@ -1,6 +1,8 @@
 package com.bintoufha.gestionStocks.model;
 
+import com.bintoufha.gestionStocks.dto.categorie.CategorieInfoDto;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.math.BigDecimal;
@@ -22,11 +24,8 @@ public class Articles extends AbstractEntity {
     @Column(name = "prixUnitaire")
     private BigDecimal prixUnitaireArticle;
 
-    @Column(name = "prixEngros")
-    private BigDecimal prixEngrosArticle;
-
-    @Column(name = "prixDetaille")
-    private BigDecimal prixDetailleArticle;
+    @Column(name = "piece")
+    private Integer piece;
 
     @Column(name = "seuil")
     private BigDecimal seuilRuptureArticle;

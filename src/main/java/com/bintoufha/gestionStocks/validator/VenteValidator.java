@@ -1,6 +1,6 @@
 package com.bintoufha.gestionStocks.validator;
 
-import com.bintoufha.gestionStocks.dto.VentesDto;
+import com.bintoufha.gestionStocks.dto.vente.VentesDto;
 import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;

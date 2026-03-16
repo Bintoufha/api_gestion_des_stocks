@@ -27,9 +27,6 @@ public class LigneCommandeClients extends AbstractEntity {
     @JoinColumn(name = "quantite")
     private BigDecimal quantite;
 
-    @Column(name = "uuidEntreprise")
-    private UUID idEntreprise;
-
     @JoinColumn(name = "prixUnitaire")
     private  BigDecimal prixUnitaire;
 }

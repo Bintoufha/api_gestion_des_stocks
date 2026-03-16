@@ -1,8 +1,8 @@
 package com.bintoufha.gestionStocks.controllers;
 
 import com.bintoufha.gestionStocks.controllers.api.ClientsApi;
-import com.bintoufha.gestionStocks.dto.ClientsDto;
-import com.bintoufha.gestionStocks.dto.CommandeClientsDto;
+import com.bintoufha.gestionStocks.dto.client.ClientListDto;
+import com.bintoufha.gestionStocks.dto.client.ClientSaveDto;
 import com.bintoufha.gestionStocks.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,14 +22,14 @@ public class ClientControllers implements ClientsApi {
     }
 
     @Override
-    public ResponseEntity<ClientsDto> save(ClientsDto clientsDto) {
+    public ResponseEntity<ClientSaveDto> save(ClientSaveDto clientsDto) {
         return ResponseEntity.ok(clientService.save(clientsDto));
     }
 
 
 
     @Override
-    public ResponseEntity<ClientsDto> findByUUID(UUID uuidClient) {
+    public ResponseEntity<ClientListDto> findByUUID(UUID uuidClient) {
         return ResponseEntity.ok(clientService.findByUuid(uuidClient));
     }
 
@@ -39,12 +39,12 @@ public class ClientControllers implements ClientsApi {
 //    }
 
     @Override
-    public ResponseEntity<List<ClientsDto>> findAll() {
+    public ResponseEntity<List<ClientListDto>> findAll() {
         return ResponseEntity.ok(clientService.findAll());
     }
 
     @Override
-    public ResponseEntity<ClientsDto> delete(UUID uuid) {
+    public ResponseEntity<Void> delete(UUID uuid) {
         clientService.deleteByUuid(uuid);
         return ResponseEntity.ok().build();
     }

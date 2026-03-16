@@ -1,45 +1,48 @@
 package com.bintoufha.gestionStocks.validator;
 
-import com.bintoufha.gestionStocks.dto.ArticlesDto;
-import com.bintoufha.gestionStocks.dto.CategoriesDto;
-import io.micrometer.common.util.StringUtils;
+import com.bintoufha.gestionStocks.dto.article.ArticleSaveDto;
+import org.springframework.util.StringUtils;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ArticleValidator {
 
-    public static List<String> validate(ArticlesDto Dtoarticles) {
+    public static List<String> validate(ArticleSaveDto dtoArticle) {
         List<String> errors = new ArrayList<>();
-        if (Dtoarticles == null) {
-            errors.add("Veuillez renseigner le champs code de article");
-            errors.add("Veuillez renseigner la designation de article");
-            errors.add("Veuillez renseigner le prix unitaire achat");
-            errors.add("Veuillez renseigner le  prix engros ");
-            errors.add("Veuillez renseigner le  prix detaillant ");
-            errors.add("Veuillez selectionner une categorie");
+
+        if (dtoArticle == null) {
+            errors.add("Veuillez renseigner le nom de l’article.");
+            errors.add("Veuillez renseigner le prix unitaire de l’article.");
+            errors.add("Veuillez renseigner le prix en gros de l’article.");
+            errors.add("Veuillez renseigner le prix détaillant de l’article.");
+            errors.add("Veuillez renseigner la quantité en stock.");
+            errors.add("Veuillez sélectionner une catégorie.");
             return errors;
         }
-        if (!StringUtils.isEmpty(Dtoarticles.getNomArticle())) {
-            errors.add("Veuillez renseigner le nom de article");
+
+        if (!StringUtils.hasLength(dtoArticle.getNomArticle())) {
+            errors.add("Veuillez renseigner le nom de l’article.");
         }
-        if (Dtoarticles.getPrixUnitaireArticle() == null) {
-            errors.add("Veuillez renseigner le prix unitaire achat article");
+
+        // ✅ Comparaisons BigDecimal avec compareTo()
+        
+        if (dtoArticle.getPrixUnitaireArticle() == null ||
+            dtoArticle.getPrixUnitaireArticle().compareTo(BigDecimal.ZERO) <= 0) {
+            errors.add("Veuillez renseigner un prix unitaire valide (> 0).");
         }
-        if (Dtoarticles.getPrixEngrosArticle() == null) {
-            errors.add("Veuillez renseigner le prix engros de article");
+
+
+        if (dtoArticle.getQuantieStocksArticle() == null ||
+            dtoArticle.getQuantieStocksArticle().compareTo(BigDecimal.ZERO) < 0) {
+            errors.add("Veuillez renseigner une quantité en stock valide (≥ 0).");
         }
-        if (Dtoarticles.getPrixDetailleArticle() == null) {
-            errors.add("Veuillez renseigner le prix detaillant de article");
-        }
-        if (Dtoarticles.getQuantieStocksArticle() == null) {
-            errors.add("Veuillez renseigner la quantite de article ");
-        }
-        if (Dtoarticles.getCategorie() == null) {
-            errors.add("Veuillez selectionner une categorie");
+
+        if (dtoArticle.getCategorieUuid()== null) {
+            errors.add("Veuillez sélectionner une catégorie.");
         }
 
         return errors;
     }
-
 }
